@@ -6,6 +6,7 @@ A project for lectures Web Application Development and Projectmanagement WS2019.
 
 ## Developer
 - FRANZ Lea
+- LEITNER Florian
 - OSWALD George
 - OTT Clemens
 - TRUMMER Julia
