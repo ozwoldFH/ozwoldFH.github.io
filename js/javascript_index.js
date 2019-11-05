@@ -30,7 +30,7 @@ window.addEventListener("load", function(){
     // load function to create first AJAX Request
     function loadData(){
         var ajaxObject = new XMLHttpRequest();
-        var ajaxURL = "https://github.com/ozwoldFH/webapp_inventory_WS2019/blob/master/data/data.txt";
+        var ajaxURL = "https://raw.githubusercontent.com/ozwoldFH/webapp_inventory_WS2019/master/data/data.txt";
 
         // trigger function on every change of readystate
         ajaxObject.onreadystatechange = ajaxCallback;
