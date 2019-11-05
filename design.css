@@ -1,0 +1,34 @@
+body {
+    background-color: white;
+}
+
+h1 {
+    color: black;
+    text-align: center;
+    font-size: 50px;
+    font-family: "Apple SD Gothic Neo";
+}
+
+p {
+    font-family: verdana;
+    font-size: 20px;
+}
+
+tr{
+    margin-left:10px;
+    font-size: 14px;
+    font-family: "Apple SD Gothic Neo";
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+th{
+    margin-left: 20px;
+    font-size: 20px;
+    background-color: #4CAF50;
+    color: white;
+}
+table{
+    border-spacing: unset;
+}
