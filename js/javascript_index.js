@@ -11,9 +11,7 @@ window.addEventListener("load", function(){
             console.log(dataJSON);
             for (var row in dataJSON) {
                 for(var column in dataJSON[row]) {
-                    
-                    console.log(column + " -> ");
-                    // console.log(dataJSON[row][column]);
+                    console.log(dataJSON[row][column]);
                 }
             }
       
