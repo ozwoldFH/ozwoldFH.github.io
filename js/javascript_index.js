@@ -54,3 +54,7 @@ window.addEventListener("load", function(){
     loadData();
 
 });
+
+function addData(){
+    document.location.href="./form.html"
+}
