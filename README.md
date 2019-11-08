@@ -37,8 +37,8 @@ to directly insert, and also state-of-the-art. Lisa and Norbert want to get acce
 overview. There they want to search data, before they insert any duplicated entries.
 
 ### Testing criteria:
-Testprotocol
-Manual Browser testing
-W3C valid https://validator.w3.org/
-NoErrors in web developerview(console)
-(credit to michael ulm)
+- Testprotocol
+- Manual Browser testing
+- W3C valid https://validator.w3.org/
+- NoErrors in web developerview(console)
+(credit to michael ulm for providing user stories information)
