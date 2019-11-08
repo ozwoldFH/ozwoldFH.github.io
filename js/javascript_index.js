@@ -19,7 +19,6 @@ window.addEventListener("load", function () {
         else {
             console.log("Error! JSON Message read failed!");
         }
-
     }
 
     function createHeader() {
