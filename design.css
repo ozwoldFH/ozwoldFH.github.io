@@ -6,29 +6,63 @@ h1 {
     color: black;
     text-align: center;
     font-size: 50px;
-    font-family: "Apple SD Gothic Neo";
+    font-family: "Helvetica";
 }
 
 p {
-    font-family: verdana;
+    font-family: "Helvetica";
     font-size: 20px;
 }
 
 tr{
     margin-left:10px;
     font-size: 14px;
-    font-family: "Apple SD Gothic Neo";
+    font-family: "Helvetica";
 }
+
 tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
 th{
-    margin-left: 20px;
-    font-size: 20px;
+    font-size: 18px;
     background-color: #4CAF50;
     color: white;
+    height: 40px;
 }
+
 table{
+    margin-top:20px;
     border-spacing: unset;
+}
+
+td{
+    height: 25px;
+    align: left;
+}
+
+td, th {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+#addDataButton{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    float:left;
+}
+
+#searchInput{
+    width: 22%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    float: right;
 }
