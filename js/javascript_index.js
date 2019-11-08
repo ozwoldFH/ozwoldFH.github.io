@@ -43,7 +43,7 @@ window.addEventListener("load", function () {
 
     // call function
     loadData();
-
+    
 });
 
 function createBody(data) {
@@ -60,6 +60,9 @@ function createBody(data) {
             rowBody.appendChild(columnBody);
         }
     }
+    //next id for creating new data
+    const nextID=dataJSON[dataJSON.length-1].id + 1;
+    localStorage.setItem("nextID",nextID);
 }
 
 function updateSearch() {
@@ -76,6 +79,9 @@ function updateSearch() {
     createBody(data);
 }
 
-function addData() {
+function goToForm() {
     document.location.href = "./form.html"
 }
+
+
+
