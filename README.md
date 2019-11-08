@@ -41,4 +41,6 @@ overview. There they want to search data, before they insert any duplicated entr
 - Manual Browser testing
 - W3C valid https://validator.w3.org/
 - NoErrors in web developerview(console)
+
+
 (credit to michael ulm for providing user stories information)
