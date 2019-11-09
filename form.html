@@ -3,48 +3,119 @@
 <head>
     <title>Daten hinzufügen</title>
     <script src="./js/form.js"></script>
-    <!-- <link rel="stylesheet" type="text/css" href="js/main.css"> -->
+    <link rel="stylesheet" type="text/css" href="css/design.css">
     <meta charset="utf-8"/>
 </head>
 <body>
 
 <h1>Daten hinzufügen</h1>
 
-<form action="#" method="post" id="myForm" onsubmit="addData()">
-    Name:
-    <input type="text" name="name">
-    <br><br>
-    Gewicht in kg:
-    <input type="number" name="weight">
-    <br><br>
-    Beschreibung:
-    <input type="text" name="description">
-    <br><br>
-    Standort:
-    <input type="text" name="location">
-    <br><br>
-    Raum:
-    <input type="text" name="room">
-    <br><br>
-    Typ:
-    <input type="text" name="type">
-    <br><br>
-    Hinzugefügt am:
-    <input type="date" name="addedDate">
-    <br><br>
-    Hinzugefügt von:
-    <input type="text" name="addedBy">
-    <br><br>
-    Letztes Service:
-    <input type="date" name="lastServiceDate">
-    <br><br>
-    Letztes Service von:
-    <input type="text" name="lastServiceBy">
-    <br><br>
-    Nächstes Service am:
-    <input type="date" name="nextServiceDate">
-    <br><br>
-    <input type="submit" value="Submit" type="button">
+  <form action="#" method="post" id="myForm" onsubmit="addData()">
+    <div id="row">
+      <div id="col-20">
+        Name:
+      </div>
+      <div id="col-80">
+        <input type="text" name="name">
+      </div>
+    </div>
+    
+    <div id="row">
+      <div id="col-20">
+        Gewicht in kg:
+      </div>
+      <div id="col-80">
+        <input type="number" name="weight">
+      </div>
+    </div>
+    
+    <div id="row">
+      <div id="col-20">
+        Beschreibung:
+      </div>
+      <div id="col-80">
+        <input type="text" name="description">
+      </div>
+    </div>
+
+    <div id="row">
+      <div id="col-20">
+        Standort:
+      </div>
+      <div id="col-80">
+        <input type="text" name="location">
+      </div>
+    </div>
+
+    <div id="row">
+      <div id="col-20">
+        Raum:
+      </div>
+      <div id="col-80">
+        <input type="text" name="room">
+      </div>
+    </div>
+    
+    <div id="row">
+      <div id="col-20">
+        Typ:
+      </div>
+      <div id="col-80">
+        <input type="text" name="type">
+      </div>
+    </div>
+    
+    <div id="row">
+      <div id="col-20">
+        Hinzugefügt am:
+      </div>
+      <div id="col-80">
+        <input type="date" name="addedDate">
+      </div>
+    </div>
+    
+    <div id="row">
+      <div id="col-20">
+        Hinzugefügt von:
+      </div>
+      <div id="col-80">
+        <input type="text" name="addedBy">
+      </div>
+    </div>
+    
+    <div id="row">
+      <div id="col-20">
+        Letztes Service:
+      </div>
+      <div id="col-80">
+        <input type="date" name="lastServiceDate">
+      </div>
+    </div>
+    
+    <div id="row">
+      <div id="col-20">
+        Letztes Service von:
+      </div>
+      <div id="col-80">
+        <input type="text" name="lastServiceBy">
+      </div>
+    </div>
+    
+    <div id="row">
+      <div id="col-20">
+        Nächstes Service am:
+      </div>
+      <div id="col-80">
+        <input type="date" name="nextServiceDate">
+      </div>
+    </div>
+    
+    <div id="row">
+      <div id="col-20">
+          <input id="submitDataButton" type="submit" value="Submit" type="button">
+      </div>
+    </div>
+ 
   </form>
 
 
