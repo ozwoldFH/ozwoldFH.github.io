@@ -9,6 +9,7 @@
 <body>
 
 <h1>Daten hinzufügen</h1>
+<p>Hinzufügen von neuen Daten noch nicht verfügbar.</p>
 
   <form action="#" method="post" id="myForm" onsubmit="addData()">
     <div id="row">
@@ -25,7 +26,7 @@
         Gewicht in kg:
       </div>
       <div id="col-80">
-        <input type="number" name="weight">
+        <input type="float" name="weight">
       </div>
     </div>
     
@@ -111,13 +112,13 @@
     </div>
     
     <div id="row">
-      <div id="col-20">
-          <input id="submitDataButton" type="submit" value="Submit" type="button">
+      <div id="col-100">
+          <input id="submitDataButton" type="submit" value="Submit" type="button" disabled>
       </div>
-    </div>
- 
+    </div> 
   </form>
 
+  <button id="back-button" onclick="goToTable()">Zurück zur Tabelle</button>
 
 <script type="text/javascript">
 </script>

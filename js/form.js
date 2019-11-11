@@ -14,3 +14,7 @@ function addData(){
 
     //writing to JSON and going back to index.html is missing
 }
+
+function goToTable() {
+    document.location.href = "./index.html"
+}

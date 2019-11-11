@@ -93,6 +93,26 @@ td, th {
   margin-top: 10px;
 }
 
+#col-100{
+  float: left;
+  width: 100%;
+  margin-top: 10px;
+  font-size: 14px;
+  font-family: "Helvetica";
+}
+
+#back-button{
+  font-size: "Helvetica";
+  background-color: yellowgreen;
+  margin-top: 40px;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  color: white;
+}
+
 #submitDataButton{
     background-color: #4CAF50; /* Green */
     border: none;
@@ -102,6 +122,17 @@ td, th {
     display: inline-block;
     font-size: 16px;
 }
+
+#submitDataButton:disabled{
+  background-color: grey; /* Grey */
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
 
 @media screen and (max-width: 600px) {
 
@@ -113,6 +144,11 @@ td, th {
   #col-80 {
     width: 100%;
     margin-top: 0;
+  }
+
+  #col-100 {
+    width: 100%;
+    margin-top: 20px;
   }
 
   table.web-and-mobile thead {
