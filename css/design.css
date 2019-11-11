@@ -38,7 +38,7 @@ table{
 
 td{
     height: 25px;
-    align: left;
+    text-align: left;
 }
 
 td, th {
@@ -49,6 +49,18 @@ td, th {
 
 #addDataButton{
     background-color: yellowgreen;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    float: left;
+}
+
+#printButton{
+    background-color: #999999;
     border: none;
     color: white;
     padding: 15px 32px;

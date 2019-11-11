@@ -3,14 +3,16 @@
 <head>
     <title>Inventory</title>
     <script src="js/javascript_index.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/design.css">
+    <link rel="stylesheet" type="text/css" href="css/design.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="css/print.css" media="print">
     <meta charset="utf-8"/>
 </head>
 <body>
 
 <h1>Inventory</h1>
 <input type="text" id="searchInput" onkeyup="updateSearch()" placeholder="search"/>
-<button id= "addDataButton" type="button" onclick="goToForm()">Daten hinzufügen</button>
+<button id="addDataButton" type="button" onclick="goToForm()">Daten hinzufügen</button>
+<button id="printButton" type="button" onclick="window.print();return false;">Print</button>
 <div>
     <table id="tableOutput" style="width:100%" class="web-and-mobile">
     </table>

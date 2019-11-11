@@ -1,0 +1,11 @@
+/**
+ * Print Stylesheet
+*/
+
+table { 
+  page-break-inside:avoid; 
+}
+
+td {
+  border-bottom: 1px solid #ccc;
+}
