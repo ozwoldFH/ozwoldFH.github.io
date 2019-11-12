@@ -12,12 +12,14 @@ window.addEventListener("load", function () {
     function ajaxLoadData() {
         console.log(this);
         if (this.readyState == 4 && this.status == 200) {
-            dataJSON = JSON.parse(this.responseText);
-            createHeader();
-            updateSearch();
-        }
-        else {
-            console.log("Error! JSON Message read failed!");
+            if(this.status > 399) {
+                console.log("Error! JSON Message read failed! Please look at the status code. More information on https://developer.mozilla.org/en-US/docs/Web/HTTP/Status");
+            }
+            if (this.status == 200) {
+                dataJSON = JSON.parse(this.responseText);
+                createHeader();
+                updateSearch();
+            }
         }
     }
 
