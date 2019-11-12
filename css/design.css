@@ -79,7 +79,7 @@ td, th {
     float: right;
 }
 
-#col-20 {
+.col-20 {
   float: left;
   width: 20%;
   margin-top: 10px;
@@ -87,7 +87,7 @@ td, th {
   font-family: "Helvetica";
 }
 
-#col-80 {
+.col-80 {
   float: left;
   width: 80%;
   margin-top: 10px;
@@ -102,7 +102,7 @@ td, th {
 }
 
 #back-button{
-  font-size: "Helvetica";
+  font-family: "Helvetica";
   background-color: yellowgreen;
   margin-top: 40px;
   padding: 15px 32px;
@@ -136,12 +136,12 @@ td, th {
 
 @media screen and (max-width: 600px) {
 
-  #col-20 {
+  .col-20 {
     width: 100%;
     margin-top: 20px;
   }
 
-  #col-80 {
+  .col-80 {
     width: 100%;
     margin-top: 0;
   }
