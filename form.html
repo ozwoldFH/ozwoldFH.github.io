@@ -10,14 +10,15 @@
 
 <h1>Add data</h1>
 <p>Adding data is not possible yet.</p>
+<p>Click "submit" to see what your new data would look like.</p>
 
-  <form action="#" method="post" id="myForm" onsubmit="addData()">
+  <form id="myForm" action="#" method="POST" name="myForm">
     <div class="row">
       <div class="col-20">
         Name:
       </div>
       <div class="col-80">
-        <input type="text" name="name">
+        <input type="text" name="name" maxlength="256">
       </div>
     </div>
     
@@ -26,7 +27,7 @@
         Weight in kg:
       </div>
       <div class="col-80">
-        <input type="number" step="0.01" name="weight">
+        <input type="number" step="0.01" name="weight" min="0">
       </div>
     </div>
     
@@ -35,7 +36,7 @@
         Description:
       </div>
       <div class="col-80">
-        <input type="text" name="description">
+        <input type="text" name="description" maxlength="256">
       </div>
     </div>
 
@@ -44,7 +45,7 @@
         Location:
       </div>
       <div class="col-80">
-        <input type="text" name="location">
+        <input type="text" name="location" maxlength="256">
       </div>
     </div>
 
@@ -53,7 +54,7 @@
         Room:
       </div>
       <div class="col-80">
-        <input type="text" name="room">
+        <input type="text" name="room" maxlength="256">
       </div>
     </div>
     
@@ -62,7 +63,7 @@
         Type:
       </div>
       <div class="col-80">
-        <input type="text" name="type">
+        <input type="text" name="type" maxlength="256">
       </div>
     </div>
     
@@ -80,7 +81,7 @@
         Added by:
       </div>
       <div class="col-80">
-        <input type="text" name="addedBy">
+        <input type="text" name="addedBy" maxlength="256">
       </div>
     </div>
     
@@ -98,7 +99,7 @@
         Last service by:
       </div>
       <div class="col-80">
-        <input type="text" name="lastServiceBy">
+        <input type="text" name="lastServiceBy" maxlength="256">
       </div>
     </div>
     
@@ -113,9 +114,14 @@
     
     <div class="row">
       <div id="col-100">
-          <input id="submitDataButton" type="submit" value="Submit" disabled>
+          <input id="submitDataButton" type="button" value="Submit" onclick="addData()">
       </div>
-    </div> 
+    </div>
+    <div class="row">
+      <div id="col-100">
+      <p id="json-output"></p>
+    </div>
+    </div>
   </form>
 
   <button id="back-button" onclick="goToTable()">Back to table</button>

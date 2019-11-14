@@ -10,9 +10,13 @@ function addData(){
         obj[item.name] = item.value;
     }
 
-    JSON.stringify(obj);
+    let json = JSON.stringify(obj);
 
-    //writing to JSON and going back to index.html is missing
+    document.getElementById("json-output").innerHTML = json;
+
+    document.myForm.reset(); //clears form
+
+    //writing to JSON yet to implement
 }
 
 function goToTable() {
