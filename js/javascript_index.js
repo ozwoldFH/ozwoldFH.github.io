@@ -16,7 +16,12 @@ window.addEventListener("load", function () {
                 console.log("Error! JSON Message read failed! Please look at the status code. More information on https://developer.mozilla.org/en-US/docs/Web/HTTP/Status");
             }
             if (this.status == 200) {
-                dataJSON = JSON.parse(this.responseText);
+                try {
+                    dataJSON = JSON.parse(this.responseText);
+                  } catch (e) {
+                      console.log("Error! JSON file is empty or is not well-formed.")
+                      return;
+                  }
                 createHeader();
                 updateSearch();
             }
