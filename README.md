@@ -30,7 +30,7 @@ e.g. all participantscountabout4500.A search field in the overview is necessary 
 - Lisa most search request is to look for participants of a selected course.
 - Norbert has to know which rooms were maintained first, because they are regulary maintained(light, paint, windows, ...).
 
-### Userstory #3: Inserting new data
+### Userstory 3: Inserting new data
 Norbert and Lisa want to insert all in formation into the new course management system. 
 It's necessary that both are able to add new data, because it's faster and less work 
 to directly insert, and also state-of-the-art. Lisa and Norbert want to get access to an 

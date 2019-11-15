@@ -27,7 +27,7 @@
         Weight in kg:
       </div>
       <div class="col-80">
-        <input type="number" step="0.01" name="weight" min="0">
+        <input type="number" step="0.01" name="weight" min="0" oninput="this.value = Math.abs(this.value)">
       </div>
     </div>
     
