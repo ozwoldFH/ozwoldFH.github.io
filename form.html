@@ -1,130 +1,128 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-    <title>Add data</title>
-    <script src="./js/form.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/design.css">
-    <meta charset="utf-8"/>
+  <title>Daten hinzufügen</title>
+  <script src="./js/form.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/design.css">
+  <meta charset="utf-8"/>
 </head>
 <body>
 
-<h1>Add data</h1>
-<p>Adding data is not possible yet.</p>
-<p>Click "submit" to see what your new data would look like.</p>
+<h1>Daten hinzufügen</h1>
 
-  <form id="myForm" action="#" method="POST" name="myForm">
-    <div class="row">
-      <div class="col-20">
-        Name:
-      </div>
-      <div class="col-80">
-        <input type="text" name="name" maxlength="256">
-      </div>
+<form id="myForm" action="#" method="POST" name="myForm">
+  <div class="row">
+    <div class="col-20">
+      Name:
     </div>
-    
-    <div class="row">
-      <div class="col-20">
-        Weight in kg:
-      </div>
-      <div class="col-80">
-        <input type="number" step="0.01" name="weight" min="0" oninput="this.value = Math.abs(this.value)">
-      </div>
+    <div class="col-80">
+      <input type="text" name="name" maxlength="256">
     </div>
-    
-    <div class="row">
-      <div class="col-20">
-        Description:
-      </div>
-      <div class="col-80">
-        <input type="text" name="description" maxlength="256">
-      </div>
-    </div>
+  </div>
 
-    <div class="row">
-      <div class="col-20">
-        Location:
-      </div>
-      <div class="col-80">
-        <input type="text" name="location" maxlength="256">
-      </div>
+  <div class="row">
+    <div class="col-20">
+      Gewicht in kg:
     </div>
+    <div class="col-80">
+      <input type="number" step="0.01" name="weight" min="0" oninput="this.value = Math.abs(this.value)">
+    </div>
+  </div>
 
-    <div class="row">
-      <div class="col-20">
-        Room:
-      </div>
-      <div class="col-80">
-        <input type="text" name="room" maxlength="256">
-      </div>
+  <div class="row">
+    <div class="col-20">
+      Beschreibung:
     </div>
-    
-    <div class="row">
-      <div class="col-20">
-        Type:
-      </div>
-      <div class="col-80">
-        <input type="text" name="type" maxlength="256">
-      </div>
+    <div class="col-80">
+      <input type="text" name="description" maxlength="256">
     </div>
-    
-    <div class="row">
-      <div class="col-20">
-       Date of adding:
-      </div>
-      <div class="col-80">
-        <input type="date" name="addedDate">
-      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-20">
+      Standort:
     </div>
-    
-    <div class="row">
-      <div class="col-20">
-        Added by:
-      </div>
-      <div class="col-80">
-        <input type="text" name="addedBy" maxlength="256">
-      </div>
+    <div class="col-80">
+      <input type="text" name="location" maxlength="256">
     </div>
-    
-    <div class="row">
-      <div class="col-20">
-        Date of last service:
-      </div>
-      <div class="col-80">
-        <input type="date" name="lastServiceDate">
-      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-20">
+      Raum:
     </div>
-    
-    <div class="row">
-      <div class="col-20">
-        Last service by:
-      </div>
-      <div class="col-80">
-        <input type="text" name="lastServiceBy" maxlength="256">
-      </div>
+    <div class="col-80">
+      <input type="text" name="room" maxlength="256">
     </div>
-    
-    <div class="row">
-      <div class="col-20">
-        Date of next service:
-      </div>
-      <div class="col-80">
-        <input type="date" id="mindate" min="" name="nextServiceDate">
-      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-20">
+      Typ:
     </div>
-    
-    <div class="row">
-      <div class="col-100">
-          <input id="submitDataButton" type="button" value="Submit" onclick="addData()">
-      </div>
+    <div class="col-80">
+      <input type="text" name="type" maxlength="256">
     </div>
-    <div class="row">
-      <div class="col-100">
+  </div>
+
+  <div class="row">
+    <div class="col-20">
+      Hinzugefügt am:
+    </div>
+    <div class="col-80">
+      <input type="date" name="addedDate">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-20">
+      Hinzugefügt von:
+    </div>
+    <div class="col-80">
+      <input type="text" name="addedBy" maxlength="256">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-20">
+      Letzter Service:
+    </div>
+    <div class="col-80">
+      <input type="date" name="lastServiceDate">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-20">
+      Letzter Service von:
+    </div>
+    <div class="col-80">
+      <input type="text" name="lastServiceBy" maxlength="256">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-20">
+      Nächstes Service:
+    </div>
+    <div class="col-80">
+      <input type="date" name="nextServiceDate">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-100">
+      <input id="submitDataButton" type="button" value="Submit" onclick="addData()">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-100">
       <p id="json-output"></p>
     </div>
-    </div>
-  </form>
+  </div>
+</form>
 
-  <button id="back-button" onclick="goToTable()">Back to table</button>
+<button id="back-button" onclick="goToTable()">Zurück zur Tabelle</button>
 
 <script>
 </script>
