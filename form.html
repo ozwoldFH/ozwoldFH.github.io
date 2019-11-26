@@ -36,8 +36,6 @@
       <input type="text" name="description" maxlength="256">
     </div>
   </div>
-
-
   <div class="row">
     <div class="col-20">
       Standort:
@@ -46,7 +44,6 @@
       <input type="text" name="location" maxlength="256">
     </div>
   </div>
-
     <div class="row">
       <div class="col-20">
         Raum:
@@ -54,8 +51,7 @@
       <div class="col-80">
         <input type="text" name="room" maxlength="256">
       </div>
-    </div>
-    
+    </div> 
     <div class="row">
       <div class="col-20">
         Typ:
@@ -63,8 +59,7 @@
       <div class="col-80">
         <input type="text" name="type" maxlength="256">
       </div>
-    </div>
-    
+    </div>  
     <div class="row">
       <div class="col-20">
        Hinzugefügt am:
@@ -72,8 +67,7 @@
       <div class="col-80">
         <input type="date" name="addedDate">
       </div>
-    </div>
-    
+    </div>  
     <div class="row">
       <div class="col-20">
         Hinzugefügt von:
@@ -81,8 +75,7 @@
       <div class="col-80">
         <input type="text" name="addedBy" maxlength="256">
       </div>
-    </div>
-    
+    </div>  
     <div class="row">
       <div class="col-20">
         Letztes Service:
@@ -90,8 +83,7 @@
       <div class="col-80">
         <input type="date" name="lastServiceDate">
       </div>
-    </div>
-    
+    </div>  
     <div class="row">
       <div class="col-20">
         Letztes Service von:
@@ -99,8 +91,7 @@
       <div class="col-80">
         <input type="text" name="lastServiceBy" maxlength="256">
       </div>
-    </div>
-   
+    </div> 
   <div class="row">
     <div class="col-20">
       Nächstes Service:
@@ -109,7 +100,6 @@
       <input type="date" id="mindate" min="" name="nextServiceDate">
     </div>
   </div>
- 
     <div class="row">
       <div class="col-100">
           <input id="submitDataButton" type="button" value="Speichern" onclick="addData()">
@@ -118,12 +108,11 @@
     <div class="row">
       <div class="col-100">
       <p id="json-output"></p>
-    </div>
-    <div class="col-80">
+	   <div class="col-80">
       <input type="number" step="0.01" name="weight" min="0" oninput="this.value = Math.abs(this.value)">
     </div>
   </div>
-
+  
 <button id="back-button" onclick="goToTable()">Zurück zur Tabelle</button>
 
 <script>
