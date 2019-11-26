@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-    <title>Daten hinzufügen</title>
+    <title>Add data</title>
     <script src="./js/form.js"></script>
     <link rel="stylesheet" type="text/css" href="css/design.css">
     <meta charset="utf-8"/>
 </head>
 <body>
 
-<h1>Daten hinzufügen</h1>
+<h1>Add data</h1>
+<p>Adding data is not possible yet.</p>
+<p>Click "submit" to see what your new data would look like.</p>
 
   <form id="myForm" action="#" method="POST" name="myForm">
     <div class="row">
@@ -22,7 +24,7 @@
     
     <div class="row">
       <div class="col-20">
-        Gewicht in kg:
+        Weight in kg:
       </div>
       <div class="col-80">
         <input type="number" step="0.01" name="weight" min="0" oninput="this.value = Math.abs(this.value)">
@@ -31,7 +33,7 @@
     
     <div class="row">
       <div class="col-20">
-        Beschreibung:
+        Description:
       </div>
       <div class="col-80">
         <input type="text" name="description" maxlength="256">
@@ -40,7 +42,7 @@
 
     <div class="row">
       <div class="col-20">
-        Standort:
+        Location:
       </div>
       <div class="col-80">
         <input type="text" name="location" maxlength="256">
@@ -49,7 +51,7 @@
 
     <div class="row">
       <div class="col-20">
-        Raum:
+        Room:
       </div>
       <div class="col-80">
         <input type="text" name="room" maxlength="256">
@@ -58,7 +60,7 @@
     
     <div class="row">
       <div class="col-20">
-        Typ:
+        Type:
       </div>
       <div class="col-80">
         <input type="text" name="type" maxlength="256">
@@ -67,7 +69,7 @@
     
     <div class="row">
       <div class="col-20">
-       Hinzugefügt am:
+       Date of adding:
       </div>
       <div class="col-80">
         <input type="date" name="addedDate">
@@ -76,7 +78,7 @@
     
     <div class="row">
       <div class="col-20">
-        Hinzugefügt von:
+        Added by:
       </div>
       <div class="col-80">
         <input type="text" name="addedBy" maxlength="256">
@@ -85,7 +87,7 @@
     
     <div class="row">
       <div class="col-20">
-        Letzter Service:
+        Date of last service:
       </div>
       <div class="col-80">
         <input type="date" name="lastServiceDate">
@@ -94,7 +96,7 @@
     
     <div class="row">
       <div class="col-20">
-        Letzter Service von:
+        Last service by:
       </div>
       <div class="col-80">
         <input type="text" name="lastServiceBy" maxlength="256">
@@ -103,10 +105,10 @@
     
     <div class="row">
       <div class="col-20">
-        Nächstes Service:
+        Date of next service:
       </div>
       <div class="col-80">
-        <input type="date" name="nextServiceDate">
+        <input type="date" id="mindate" min="" name="nextServiceDate">
       </div>
     </div>
     
@@ -122,7 +124,7 @@
     </div>
   </form>
 
-  <button id="back-button" onclick="goToTable()">Zurück zur Tabelle</button>
+  <button id="back-button" onclick="goToTable()">Back to table</button>
 
 <script>
 </script>
