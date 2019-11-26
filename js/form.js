@@ -1,19 +1,19 @@
 "use strict";
 let today = new Date();
 
-window.addEventListener("load", function(){ 
-let day=today.getDate();
-let month = today.getMonth()+1;
-let year = today.getFullYear();
+window.addEventListener("load", function(){
+    let day=today.getDate();
+    let month = today.getMonth()+1;
+    let year = today.getFullYear();
 
-if(day <10){
-    day='d'+day;
-} else if (month < 10){
-    month='0'+month;
-}
+    if(day <10){
+        day='d'+day;
+    } else if (month < 10){
+        month='0'+month;
+    }
 
-today=year+'-'+month+'-'+day;
-document.getElementById('mindate').setAttribute('min', today);
+    today=year+'-'+month+'-'+day;
+    document.getElementById('mindate').setAttribute('min', today);
 });
 
 function addData(){
@@ -28,7 +28,7 @@ function addData(){
             document.getElementById("json-output").innerHTML = "Datum für das nächste Service liegt in der Vergangenheit.";
             return
         } else{
-        obj[item.name] = item.value;
+            obj[item.name] = item.value;
         }
     }
 
