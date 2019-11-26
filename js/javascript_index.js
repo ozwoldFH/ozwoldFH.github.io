@@ -7,7 +7,14 @@ window.addEventListener("load", function () {
     const tableOutput = document.getElementById("tableOutput");
 
     const dataTable = $("#grid").bootgrid({
-        caseSensitive: false
+        caseSensitive: false,
+        labels: {
+            all: "Alle",
+            infos: "Zeigt von {{ctx.start}} zu {{ctx.end}} von {{ctx.total}} Einträgen",
+            loading: "Laden...",
+            noResults: "Keine passenden Daten",
+            search: "Suchen"
+        }
     });
 
     function ajaxLoadData() {
@@ -28,7 +35,7 @@ window.addEventListener("load", function () {
 
 
     // call function
-    loadData(); 
+    loadData();
 });
 
 function goToForm() {
