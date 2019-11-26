@@ -29,6 +29,83 @@
     </div>
   </div>
 
+
+    <div class="row">
+      <div class="col-20">
+        Raum:
+      </div>
+      <div class="col-80">
+        <input type="text" name="room" maxlength="256">
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-20">
+        Typ:
+      </div>
+      <div class="col-80">
+        <input type="text" name="type" maxlength="256">
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-20">
+       Hinzugefügt am:
+      </div>
+      <div class="col-80">
+        <input type="date" name="addedDate">
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-20">
+        Hinzugefügt von:
+      </div>
+      <div class="col-80">
+        <input type="text" name="addedBy" maxlength="256">
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-20">
+        Letzter Service:
+      </div>
+      <div class="col-80">
+        <input type="date" name="lastServiceDate">
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-20">
+        Letzter Service von:
+      </div>
+      <div class="col-80">
+        <input type="text" name="lastServiceBy" maxlength="256">
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-20">
+        Nächstes Service:
+      </div>
+      <div class="col-80">
+        <input type="date" name="nextServiceDate">
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-100">
+          <input id="submitDataButton" type="button" value="Speichern" onclick="addData()">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-100">
+      <p id="json-output"></p>
+    </div>
+    <div class="col-80">
+      <input type="number" step="0.01" name="weight" min="0" oninput="this.value = Math.abs(this.value)">
+    </div>
+  </div>
   <div class="row">
     <div class="col-20">
       Beschreibung:
@@ -78,6 +155,14 @@
     <div class="col-20">
       Hinzugefügt von:
     </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-20">
+      Hinzugefügt von:
+    </div>
+
     <div class="col-80">
       <input type="text" name="addedBy" maxlength="256">
     </div>
