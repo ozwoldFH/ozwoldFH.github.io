@@ -26,7 +26,7 @@ tr:nth-child(even) {
 
 th{
     font-size: 16px;
-    background-color: yellowgreen;
+    background-color: darkred;
     color: white;
     height: 40px;
 }
@@ -48,7 +48,7 @@ td, th {
 }
 
 #addDataButton{
-    background-color: yellowgreen;
+    background-color: darkred;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -107,7 +107,7 @@ td, th {
 
 #back-button{
   font-family: "Helvetica";
-  background-color: yellowgreen;
+  background-color: darkred;
   margin-top: 20px;
   padding: 15px 32px;
   text-align: center;
