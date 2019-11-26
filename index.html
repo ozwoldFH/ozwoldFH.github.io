@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory</title>
-    <link rel="stylesheet" type="text/css" href="css/design.css"/>
-    <link rel="stylesheet" type="text/css" href="css/print.css"/>
+    <link rel="stylesheet" type="text/css" href="css/design.css" />
+    <link rel="stylesheet" type="text/css" href="css/print.css" />
     <link href="vendors/css/bootstrap.css" rel="stylesheet" />
     <link href="vendors/css/jquery.bootgrid.css" rel="stylesheet" />
     <script src="vendors/js/modernizr-2.8.1.js"></script>
@@ -16,10 +17,9 @@
 </head>
 
 <body>
-
-<h1>Inventar</h1>
-<button id="addDataButton" type="button" onclick="goToForm()">Daten hinzufügen</button>
-<button id="printButton" type="button" onclick="window.print();return false;">Drucken</button>
+    <h1>Inventar</h1>
+    <button id="addDataButton" type="button" onclick="goToForm()">Daten hinzufügen</button>
+    <button id="printButton" type="button" onclick="window.print();return false;">Drucken</button>
 
     <div>
         <table id="grid" class="table table-condensed table-hover table-striped" data-selection="true"
@@ -31,13 +31,13 @@
                     <th data-column-id="weightKg" data-type="numeric">Gewicht [kg]</th>
                     <th data-column-id="description">Beschreibung</th>
                     <th data-column-id="location">Standort</th>
-                    <th data-column-id="room">Room</th>
-                    <th data-column-id="type">Type</th>
-                    <th data-column-id="addedDateTime">Added Date</th>
-                    <th data-column-id="addedBy">Added By</th>
-                    <th data-column-id="lastServiceDateTime">Last Serivce</th>
-                    <th data-column-id="lastServiceBy">Last Service by</th>
-                    <th data-column-id="nextServiceDateTime">Next Service</th>
+                    <th data-column-id="room">Raum</th>
+                    <th data-column-id="type">Typ</th>
+                    <th data-column-id="addedDateTime">Hinzugefügt am</th>
+                    <th data-column-id="addedBy">Hinzugefügt von</th>
+                    <th data-column-id="lastServiceDateTime">Letzter Service</th>
+                    <th data-column-id="lastServiceBy">Letzter Service von</th>
+                    <th data-column-id="nextServiceDateTime">Nächstes Service</th>
                 </tr>
             </thead>
         </table>
