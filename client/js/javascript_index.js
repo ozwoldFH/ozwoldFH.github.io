@@ -1,18 +1,18 @@
 "use strict";
 
-window.addEventListener("load", function () {
+$(document).ready(function(){
     console.log("=== page ready ===");
 
-    // member variables
-    const tableOutput = document.getElementById("tableOutput");
-
+    // Initializes the element with id grid as bootgrid with some settings
+    // For more information check out Documentation:
+    // http://www.jquery-bootgrid.com/Documentation
     const dataTable = $("#grid").bootgrid({
         caseSensitive: false,
         labels: {
             all: "Alle",
             infos: "Zeigt von {{ctx.start}} zu {{ctx.end}} von {{ctx.total}} Einträgen",
             loading: "Laden...",
-            noResults: "Keine passenden Daten",
+            noResults: "Keine Daten",
             search: "Suchen"
         }
     });

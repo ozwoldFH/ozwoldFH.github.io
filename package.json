@@ -1,0 +1,19 @@
+{
+  "name": "webapp_inventory_ws2019",
+  "version": "1.0.0",
+  "description": "A web application to view the inventory of the FH as an exercise for lectures Web Application Development and Projectmanagement WS2019.",
+  "main": "index.js",
+  "scripts": {
+    "run": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ozwoldFH/webapp_inventory_WS2019.git"
+  },
+  "author": "Franz Lea, Leitner Florian, Oswald George, Ott Clemens, Trummer Julia, Wieser Stefanie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ozwoldFH/webapp_inventory_WS2019/issues"
+  },
+  "homepage": "https://github.com/ozwoldFH/webapp_inventory_WS2019#readme"
+}
