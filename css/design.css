@@ -79,6 +79,14 @@ td, th {
     float: right;
 }
 
+input:required {
+  border:0.5px solid tomato;
+}
+
+input:valid {
+  border:0.5px solid grey;
+}
+
 .col-20 {
   float: left;
   width: 20%;

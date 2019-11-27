@@ -13,59 +13,59 @@
 <form id="myForm" action="#" method="POST" name="myForm">
   <div class="row">
     <div class="col-20">
-      Name:
+      Name:*
     </div>
     <div class="col-80">
-      <input type="text" name="name" maxlength="256">
+      <input type="text" name="name" maxlength="256" required>
     </div>
   </div>
 
   <div class="row">
     <div class="col-20">
-      Gewicht in kg:
+      Gewicht in kg:*
     </div>
     <div class="col-80">
-      <input type="number" step="0.01" name="weight" min="0" oninput="this.value = Math.abs(this.value)">
+      <input type="number" step="0.01" name="weight" min="0" oninput="this.value = Math.abs(this.value)" required>
     </div>
   </div>
  <div class="row">
     <div class="col-20">
-      Beschreibung:
+      Beschreibung:*
     </div>
     <div class="col-80">
-      <input type="text" name="description" maxlength="256">
+      <input type="text" name="description" maxlength="256" required>
     </div>
   </div>
   <div class="row">
     <div class="col-20">
-      Standort:
+      Standort:*
     </div>
     <div class="col-80">
-      <input type="text" name="location" maxlength="256">
+      <input type="text" name="location" maxlength="256" required>
     </div>
   </div>
     <div class="row">
       <div class="col-20">
-        Raum:
+        Raum:*
       </div>
       <div class="col-80">
-        <input type="text" name="room" maxlength="256">
+        <input type="text" name="room" maxlength="256" required>
       </div>
     </div> 
     <div class="row">
       <div class="col-20">
-        Typ:
+        Typ:*
       </div>
       <div class="col-80">
-        <input type="text" name="type" maxlength="256">
+        <input type="text" name="type" maxlength="256" required>
       </div>
     </div>  
     <div class="row">
       <div class="col-20">
-       Hinzugefügt am:
+       Hinzugefügt am:*
       </div>
       <div class="col-80">
-        <input type="date" name="addedDate">
+        <input type="date" name="addedDate" required>
       </div>
     </div>  
     <div class="row">
@@ -107,9 +107,8 @@
     </div>
     <div class="row">
       <div class="col-100">
-      <p id="json-output"></p>
-	   <div class="col-80">
-      <input type="number" step="0.01" name="weight" min="0" oninput="this.value = Math.abs(this.value)">
+        <p id="json-output"></p>
+      </div>
     </div>
   </div>
   
