@@ -26,7 +26,8 @@ $(document).ready(function(){
 
     function loadData() {
         const ajaxObject = new XMLHttpRequest();
-        const ajaxURL = "https://raw.githubusercontent.com/ozwoldFH/webapp_inventory_WS2019/master/data/data.json";
+        //const ajaxURL = "https://raw.githubusercontent.com/ozwoldFH/webapp_inventory_WS2019/master/data/data.json";
+        const ajaxURL = "./inventory";
         ajaxObject.onreadystatechange = ajaxLoadData;
         ajaxObject.open("GET", ajaxURL, true);
         ajaxObject.send();

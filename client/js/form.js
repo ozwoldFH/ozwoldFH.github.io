@@ -85,6 +85,6 @@ function addData(){
 }
 
 function goToTable() {
-    document.location.href = "./index.html"
+    document.location.href = "../index.html"
 }
 
