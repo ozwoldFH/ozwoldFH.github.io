@@ -9,6 +9,10 @@ A project for lectures Web Application Development and Projectmanagement WS2019.
 - TRUMMER Julia
 - WIESER Stefanie
 
+## Get Started
+- Create `.env` file. Template: `.env.default`
+- ``node index.js``
+
 ## Scrum sprint 1
 Scrum master: OSWALD George
 
