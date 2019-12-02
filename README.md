@@ -11,7 +11,8 @@ A project for lectures Web Application Development and Projectmanagement WS2019.
 
 ## Get Started
 - Create `.env` file. Template: `.env.default`
-- ``node index.js``
+- Install node modules: ``npm install``
+- Run server: ``node index.js``
 
 ## Scrum sprint 1
 Scrum master: OSWALD George
