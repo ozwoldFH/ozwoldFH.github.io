@@ -1,38 +1,30 @@
-const mysql = require('mysql');
+const {Client} = require('pg');
 
-const con = mysql.createConnection({
-    host: process.env.DATABASE_URL,
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASSWORD,
-    port: process.env.DATABASE_PORT,
-    multipleStatements: true,
+const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
 });
 let connectPromise;
 
-function getConnection() {
+async function getClient() {
     if (!connectPromise) {
-        connectPromise = new Promise((resolve, reject) => {
-            con.connect(err => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(con);
-                }
-            });
-        });
+        connectPromise = client.connect();
     }
 
-    return connectPromise;
+    await connectPromise;
+    return client;
 }
 
 async function query(sql) {
-    const con = await getConnection();
+    const client = await getClient();
     return new Promise((resolve, reject) => {
-        con.query(sql, function (err, result) {
+        client.query(sql, (err, res) => {
             if (err) {
                 reject(err);
             } else {
-                resolve(result);
+                const rows = [];
+                res.rows.forEach(row => rows.push(row));
+                resolve(rows);
             }
         });
     });

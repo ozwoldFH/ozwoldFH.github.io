@@ -4,7 +4,7 @@
   "description": "A web application to view the inventory of the FH as an exercise for lectures Web Application Development and Projectmanagement WS2019.",
   "main": "index.js",
   "scripts": {
-    "run": "node index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,6 @@
   "homepage": "https://github.com/ozwoldFH/webapp_inventory_WS2019#readme",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "mysql": "^2.17.1"
+    "pg": "^7.14.0"
   }
 }

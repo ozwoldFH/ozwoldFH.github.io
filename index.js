@@ -3,8 +3,6 @@ const url = require('url');
 require('dotenv').config();
 const sendStaticFiles = require('./server/helper/sendStaticFiles');
 const startsWith = require('./server/helper/startsWith');
-const readFile = require('./server/helper/readFile');
-const dbQuery = require('./server/helper/db');
 const getInventory = require('./server/inventory/get');
 const postInventory = require('./server/inventory/post');
 const putInventory = require('./server/inventory/put');
@@ -46,12 +44,7 @@ const server = http.createServer(async (request, response) => {
     response.end('Endpoint not found', 'utf-8');
 });
 
-server.listen(8080, async () => {
-    const createSql = await readFile('./server/scripts/1_DDL.sql');
-    await dbQuery(createSql);
-
-    const insertSql = await readFile('./server/scripts/2_DML.sql');
-    await dbQuery(insertSql);
-
-    console.log('Server and Notes Application is listening to http://localhost:8080');
+const port = process.env.PORT || 80;
+server.listen(port, () => {
+    console.log('Server and Notes Application is listening to http://localhost:' + port);
 },);
