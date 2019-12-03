@@ -8,9 +8,11 @@ $(document).ready(function(){
     // http://www.jquery-bootgrid.com/Documentation
     const dataTable = $("#grid").bootgrid({
         caseSensitive: false,
+        columnSelection: false,
+        rowCount: -1,
         labels: {
             all: "Alle",
-            infos: "Zeigt von {{ctx.start}} zu {{ctx.end}} von {{ctx.total}} Einträgen",
+            infos: "Zeigt {{ctx.total}} Einträgen",
             loading: "Laden...",
             noResults: "Keine Daten",
             search: "Suchen"
@@ -37,11 +39,18 @@ $(document).ready(function(){
 
     // call function
     loadData();
+
+    $("#grid-header").find('.actionBar').prepend('<button id="addDataButton" type="button" onclick="window.print();return false;">Drucken</button>');
+    $("#grid-header").find('.actionBar').prepend('<button id="printButton" type="button" onclick="goToForm()">Daten hinzufügen</button>');
+    $("#grid-header").find('.fa-search').remove();       
+    //$('#grid-header').find('.form-control').css({'border': 'none', 'padding':'15px 32px', 'text-align': 'center','text-decoration': 'none', 'display': 'inline-block','font-size': '16px'});
+
 });
 
 function goToForm() {
     document.location.href = "./form.html"
 }
+
 
 
 
