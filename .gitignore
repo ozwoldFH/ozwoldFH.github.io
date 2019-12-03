@@ -20,4 +20,9 @@ js/.idea/workspace.xml
 .idea/webapp_inventory_WS2019.iml
 
 .idea/workspace.xml
+
 .env
+
+node_modules/
+
+package-lock.json
