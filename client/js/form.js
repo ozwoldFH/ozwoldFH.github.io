@@ -87,6 +87,7 @@ function addData(){
 function ajaxPostData() {
     if (this.readyState == 4 && this.status == 200) {
         console.log("Data was sent.");
+        console.log(JSON.parse(this.responseText));
     }
 }
 

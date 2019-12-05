@@ -46,7 +46,7 @@ const server = http.createServer(async (request, response) => {
             const result = await postInventory(dataJSON);
             response.writeHead(200, {'content-type': 'application/json; charset=utf-8'});
             response.end(JSON.stringify(result));
-            
+            console.log(JSON.stringify(result));
         });  
         return;     
     }
