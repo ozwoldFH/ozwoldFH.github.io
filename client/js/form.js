@@ -24,7 +24,7 @@ function addData(){
     let missingInput="";
     for(var i=0; i< 11; i++){
         var item = elements.item(i);
-        if(item.name === "nextServiceDate" && item.value < today && item.value !== ""){
+        if(item.name === "nextServiceDateTime" && item.value < today && item.value !== ""){
             confirm("Datum für das nächste Service liegt in der Vergangenheit.")
             return
         } else{
@@ -59,7 +59,7 @@ function addData(){
                             missingInput+=" - Typ\n";
                         }
                         break;
-                case "addedDate":
+                case "addedDateTime":
                     if(item.value===""){
                         missingInput+=" - Hinzugefügt am\n";
                     }
@@ -76,12 +76,27 @@ function addData(){
     }
 
     let json = JSON.stringify(obj);
+    //document.getElementById("json-output").innerHTML = json;
 
-    document.getElementById("json-output").innerHTML = json;
+    //document.myForm.reset(); //clears form
+    postData(json);
 
-    document.myForm.reset(); //clears form
 
-    //writing to JSON yet to implement
+}
+
+function ajaxPostData() {
+    if (this.readyState == 4 && this.status == 200) {
+        console.log("Data was sent.");
+    }
+}
+
+function postData(json){
+    const ajaxObject = new XMLHttpRequest();
+    const ajaxURL = "./inventory";
+    ajaxObject.onreadystatechange = ajaxPostData;
+    ajaxObject.open("POST", ajaxURL, true);
+    ajaxObject.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    ajaxObject.send(json);
 }
 
 function goToTable() {

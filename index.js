@@ -35,14 +35,26 @@ const server = http.createServer(async (request, response) => {
         response.end(JSON.stringify(result));
     }
     if (requestUrl.pathname === '/inventory' && request.method === 'POST') {
-        const result = await postInventory(requestUrl.query);
-        response.writeHead(200, {'content-type': 'application/json; charset=utf-8'});
-        response.end(JSON.stringify(result));
+        var dataJSON = [];
+        var data = '';
+        request.on('data', function (chunk) {
+            data += chunk;
+        });
+
+        request.on('end', async function () {
+            dataJSON = JSON.parse(data);
+            const result = await postInventory(dataJSON);
+            response.writeHead(200, {'content-type': 'application/json; charset=utf-8'});
+            response.end(JSON.stringify(result));
+            
+        });  
+        return;     
     }
 
     response.writeHead(404, {});
     response.end('Endpoint not found', 'utf-8');
 });
+
 
 const port = process.env.PORT || 80;
 server.listen(port, () => {
