@@ -41,6 +41,9 @@ It's necessary that both are able to add new data, because it's faster and less 
 to directly insert, and also state-of-the-art. Lisa and Norbert want to get access to an 
 overview. There they want to search data, before they insert any duplicated entries.
 
+## Scrum sprint 2
+Scrum master: 
+
 ### Userstory 4: Persistent data
 The course management system should easily extendable. First draft of inserting new data
 looks quite good. At the next step it's important, that normal office users should be able to store 
