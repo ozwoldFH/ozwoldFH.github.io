@@ -78,7 +78,6 @@ function addData(){
     let json = JSON.stringify(obj);
     //document.getElementById("json-output").innerHTML = json;
 
-    //document.myForm.reset(); //clears form
     postData(json);
 
 
@@ -87,7 +86,22 @@ function addData(){
 function ajaxPostData() {
     if (this.readyState == 4 && this.status == 200) {
         console.log("Data was sent.");
-        console.log(JSON.parse(this.responseText));
+        const responseJSON = JSON.parse(this.responseText);
+        console.log(responseJSON);
+
+        if(responseJSON.hasOwnProperty('result')){
+            if(responseJSON.result.length == 0) {
+                window.alert("Daten wurden erfolgreich gespeichert!");
+                document.myForm.reset(); //clears form
+                return;
+            }
+        }
+        if(responseJSON.hasOwnProperty('message')){
+            if(responseJSON.message.includes("duplicate key value violates unique constraint")) {
+                window.alert("Fehler! Leider existiert der Name bereits. Wählen Sie einen anderen Namen aus.");
+                return;
+            }
+        }
     }
 }
 
@@ -107,3 +121,11 @@ function goToTable() {
 
 }
 
+function isEmpty(obj) {
+    for(var prop in obj) {
+        if(obj.hasOwnProperty(prop))
+            return false;
+    }
+
+    return true;
+}
