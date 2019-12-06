@@ -26,3 +26,6 @@ js/.idea/workspace.xml
 node_modules/
 
 package-lock.json
+.idea/codeStyles/Project.xml
+
+.idea/dbnavigator.xml

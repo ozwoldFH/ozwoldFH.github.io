@@ -26,7 +26,7 @@ tr:nth-child(even) {
 
 th{
     font-size: 16px;
-    background-color: darkred;
+    background-color: lightgrey;
     color: white;
     height: 40px;
 }
@@ -48,7 +48,7 @@ td, th {
 }
 
 #addDataButton{
-    background-color: darkred;
+    background-color: lightgrey;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -60,7 +60,7 @@ td, th {
 }
 
 #printButton{
-    background-color: #999999;
+    background-color: dimgrey;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -80,10 +80,14 @@ td, th {
 }
 
 input:required {
+    width: 20%;
+    height: 20px;
   border:0.5px solid tomato;
 }
 
 input:valid {
+    width: 20%;
+    height: 20px;
   border:0.5px solid grey;
 }
 
@@ -115,7 +119,7 @@ input:valid {
 
 #back-button{
   font-family: "Helvetica";
-  background-color: darkred;
+  background-color: lightgrey;
   margin-top: 20px;
   padding: 15px 32px;
   text-align: center;
@@ -126,13 +130,16 @@ input:valid {
 }
 
 #submitDataButton{
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
+    font-family: "Helvetica";
+    background-color: dimgrey;
+    margin-top: 20px;
+    margin-left: 12.5%;
+    padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    color: white;
 }
 
 #submitDataButton:disabled{

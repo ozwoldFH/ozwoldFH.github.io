@@ -101,6 +101,9 @@ function postData(json){
 }
 
 function goToTable() {
-    document.location.href = "../index.html"
+    var answer = confirm ("Möchten Sie die Seite wirklich verlassen? \n Alle ungespeicherten Daten gehen verloren.")
+    if (answer)
+        document.location.href = "./index.html"
+
 }
 
