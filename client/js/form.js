@@ -120,12 +120,3 @@ function goToTable() {
         document.location.href = "./index.html"
 
 }
-
-function isEmpty(obj) {
-    for(var prop in obj) {
-        if(obj.hasOwnProperty(prop))
-            return false;
-    }
-
-    return true;
-}

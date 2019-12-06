@@ -1,7 +1,7 @@
 const dbQuery = require('../helper/db');
 
 async function get() {
-    const sql = 'SELECT * FROM T_INVENTORY ORDER BY id';
+    const sql = 'SELECT *, TO_CHAR(added_datetime, \'DD-MM-YYYY\') as added_DateTime, TO_CHAR(last_service_datetime, \'DD-MM-YYYY\') as last_service_datetime, TO_CHAR(next_service_datetime, \'DD-MM-YYYY\') as next_service_datetime FROM T_INVENTORY ORDER BY id';
     const result = await dbQuery(sql);
 
     return result.map(item => {
