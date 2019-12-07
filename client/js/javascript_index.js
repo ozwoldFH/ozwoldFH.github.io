@@ -10,6 +10,10 @@ $(document).ready(function(){
         caseSensitive: false,
         columnSelection: false,
         rowCount: -1,
+        searchSettings: {
+            delay: 50,
+            characters: 2
+        },
         labels: {
             all: "Alle",
             infos: "Zeigt {{ctx.total}} Einträgen",
