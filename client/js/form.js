@@ -1,18 +1,8 @@
 "use strict";
-let today = new Date();
+let today;
 
 window.addEventListener("load", function(){
-    let day=today.getDate();
-    let month = today.getMonth()+1;
-    let year = today.getFullYear();
-
-    if(day <10){
-        day='d'+day;
-    } else if (month < 10){
-        month='0'+month;
-    }
-
-    today=year+'-'+month+'-'+day;
+    today = new Date().toISOString().slice(0,10);
     document.getElementById('mindate').setAttribute('min', today);
 });
 
