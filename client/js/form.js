@@ -1,6 +1,6 @@
 "use strict";
 let today;
-let editMode = false;
+let editMode = "false";
 
 
 window.addEventListener("load", function(){
@@ -11,8 +11,6 @@ window.addEventListener("load", function(){
     if(editMode == "true") {
         changeFormToEditMode();
     }
-    // wenn ja, dann änder die .html Seite (fülle alle Felder aus)
-
 
 });
 
@@ -25,9 +23,7 @@ function changeFormToEditMode(){
     for (var key in jsonDATA){
         var name = key;
         var value = jsonDATA[key];
-        
         if(name != "id") {
-            console.log(name);
             if(name.toLowerCase().endsWith("datetime")) {
                 let stringDateArray = value.split('.');
                 document.getElementsByName(key)[0].value = stringDateArray[2] + "-" + stringDateArray[1] + "-" + stringDateArray[0];
@@ -43,9 +39,14 @@ function changeFormToEditMode(){
 
 function addData(){
     var elements = document.getElementById("myForm").elements;
-    const nextID=localStorage.getItem('nextID'); //only works if you go from index directly to form
     var obj = {};
-    obj["id"]=nextID;
+    if(editMode == "true") {
+        const jsonDATA = JSON.parse(localStorage.getItem("row"));
+        obj["id"] = jsonDATA["id"];
+    }
+    else {
+        obj["id"]=-1;
+    }
     let missingInput="";
     for(var i=0; i< 11; i++){
         var item = elements.item(i);
@@ -146,15 +147,47 @@ function postData(json){
 
 
 
+
+
+
+function ajaxPutData() {
+    if (this.readyState == 4 && this.status == 200) {
+        console.log("Data was sent.");
+        const responseJSON = JSON.parse(this.responseText);
+        console.log(responseJSON);
+
+        if(responseJSON.hasOwnProperty('result')){
+            if(responseJSON.result.length == 0) {
+                window.alert("Daten wurden erfolgreich geändert!");
+                return;
+            }
+        }
+        if(responseJSON.hasOwnProperty('message')){
+            if(responseJSON.message.includes("duplicate key value violates unique constraint")) {
+                window.alert("Fehler! Leider existiert der Name bereits. Wählen Sie einen anderen Namen aus.");
+                return;
+            }
+        }
+    }
+}
+
 function putData(json){
-    console.log("putData");
+    const ajaxObject = new XMLHttpRequest();
+    const ajaxURL = "./inventory";
+    ajaxObject.onreadystatechange = ajaxPutData;
+    ajaxObject.open("PUT", ajaxURL, true);
+    ajaxObject.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    ajaxObject.send(json);
 }
 
 
 
 function goToTable() {
     var answer = confirm ("Möchten Sie die Seite wirklich verlassen? \n Alle ungespeicherten Daten gehen verloren.")
-    if (answer)
+    if (answer){
+        document.myForm.reset();
         document.location.href = "./index.html"
+    }
+
 
 }
