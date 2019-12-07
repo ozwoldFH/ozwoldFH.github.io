@@ -1,10 +1,30 @@
 "use strict";
 let today;
 
+
+
 window.addEventListener("load", function(){
     today = new Date().toISOString().slice(0,10);
     document.getElementById('mindate').setAttribute('min', today);
+
+    const editMode = this.localStorage.getItem("editMode");
+    if(editMode == "true") {
+        changeFormToEditMode();
+    }
+    // wenn ja, dann änder die .html Seite (Daten hinzufügen auf bearbetein, fülle alle Felder aus, button addData() auf updateData())
+
+
 });
+
+
+function changeFormToEditMode(){
+    const jsonDATA = localStorage.getItem("row");
+    localStorage.setItem("editMode", "false");
+    document.getElementById("title").innerHTML = "Daten ändern"
+    console.log(JSON.stringify(jsonDATA));
+}
+
+
 
 function addData(){
     var elements = document.getElementById("myForm").elements;

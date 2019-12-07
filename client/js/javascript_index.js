@@ -14,10 +14,10 @@ $(document).ready(function(){
             delay: 50,
             characters: 2
         },
-        formatters:{ // code inspired http://www.jquery-bootgrid.com/Examples#more
+        formatters:{ // code inspired by http://www.jquery-bootgrid.com/Examples#more
             "commands":function(column, row)
             {
-                return "<button type='button' class='btn btn-success btn-s command-edit data-row='"+JSON.stringify(row)+"'>Edit</button>";
+                return "<button type='button' class='btn btn-success btn-s command-edit' data-row='"+JSON.stringify(row)+"'>Editieren</button>";
             }
         },
         labels: {
@@ -29,14 +29,48 @@ $(document).ready(function(){
         }
     }).on("loaded.rs.jquery.bootgrid", function()
     {
-        /* Executes after data is loaded and rendered */
         dataTable.find(".command-edit").on("click", function(e)
         {
-            // alert("You pressed edit on row: " + JSON.stringify($(this).data()));
-            // console.log($(this).data());   
+
+            // code inspired by https://www.codeply.com/go/iIGPoW4qmr/bootstrap-edit-table-row
+            // $('#exampleModal').modal("show");
+            // var modalBody = $('<div id="modalContent"></div>');
+            // var modalForm = $('<form role="form" name="modalForm" method="post"></form>');
+            // var jsonDATA = $(this).data().row;            
+            // for (var key in jsonDATA){
+            //     var name = key;
+            //     var value = jsonDATA[key];
+            //     var formGroup = $('<div class="form-group"></div>');
+            //     formGroup.append('<label for="'+name+'">'+name+'</label>');
+            //     formGroup.append('<input class="form-control" name="'+name+'" id="'+name+'" value="'+value+'" />'); 
+            //     modalForm.append(formGroup);
+            // }
+            // modalBody.append(modalForm);
+            // $('.modal-body').html(modalBody);     
             
+            localStorage.setItem("editMode", "true");
+            localStorage.setItem("row", $(this).data().row);
+            document.location.href = "./form.html"
+
+            // mach eine localStorage Variable die EDITIEREN = TRUE setzt
+            // speichere zustzlich ins localStorage die row ab
+            // gehe zur form
+            
+
+            // $.post("form.html", function(data){
+            //     var formGroup = $('<div class="form-group"></div>');
+            //     var body=data.replace(/^.*?<body>(.*?)<\/body>.*?$/s,"$1");
+            //     formGroup.append(body);
+            //     modalForm.append(formGroup);
+            //     modalBody.append(modalForm);
+
+            //     console.log(modalBody);
+            //     //console.log(body);
+            //     $(".modal-body").html(modalBody);
+            
+            // });
         });
-    });;
+    });
 
     function ajaxLoadData() {
         if (this.readyState == 4 && this.status == 200) {
