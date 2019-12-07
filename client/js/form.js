@@ -1,27 +1,42 @@
 "use strict";
 let today;
-
+let editMode = false;
 
 
 window.addEventListener("load", function(){
     today = new Date().toISOString().slice(0,10);
     document.getElementById('mindate').setAttribute('min', today);
 
-    const editMode = this.localStorage.getItem("editMode");
+    editMode = this.localStorage.getItem("editMode");
     if(editMode == "true") {
         changeFormToEditMode();
     }
-    // wenn ja, dann änder die .html Seite (Daten hinzufügen auf bearbetein, fülle alle Felder aus, button addData() auf updateData())
+    // wenn ja, dann änder die .html Seite (fülle alle Felder aus)
 
 
 });
 
 
 function changeFormToEditMode(){
-    const jsonDATA = localStorage.getItem("row");
+    const jsonDATA = JSON.parse(localStorage.getItem("row"));
     localStorage.setItem("editMode", "false");
     document.getElementById("title").innerHTML = "Daten ändern"
-    console.log(JSON.stringify(jsonDATA));
+
+    for (var key in jsonDATA){
+        var name = key;
+        var value = jsonDATA[key];
+        
+        if(name != "id") {
+            console.log(name);
+            if(name.toLowerCase().endsWith("datetime")) {
+                let stringDateArray = value.split('.');
+                document.getElementsByName(key)[0].value = stringDateArray[2] + "-" + stringDateArray[1] + "-" + stringDateArray[0];
+            }
+            else {
+                document.getElementsByName(key)[0].value = value;
+            }
+        }
+    }
 }
 
 
@@ -88,7 +103,12 @@ function addData(){
     let json = JSON.stringify(obj);
     //document.getElementById("json-output").innerHTML = json;
 
-    postData(json);
+    if(editMode == true) {
+        postData(json);
+    }
+    else {
+        putData(json);
+    }
 
 
 }
@@ -123,6 +143,14 @@ function postData(json){
     ajaxObject.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     ajaxObject.send(json);
 }
+
+
+
+function putData(json){
+    console.log("putData");
+}
+
+
 
 function goToTable() {
     var answer = confirm ("Möchten Sie die Seite wirklich verlassen? \n Alle ungespeicherten Daten gehen verloren.")

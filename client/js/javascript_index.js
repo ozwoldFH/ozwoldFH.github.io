@@ -30,45 +30,10 @@ $(document).ready(function(){
     }).on("loaded.rs.jquery.bootgrid", function()
     {
         dataTable.find(".command-edit").on("click", function(e)
-        {
-
-            // code inspired by https://www.codeply.com/go/iIGPoW4qmr/bootstrap-edit-table-row
-            // $('#exampleModal').modal("show");
-            // var modalBody = $('<div id="modalContent"></div>');
-            // var modalForm = $('<form role="form" name="modalForm" method="post"></form>');
-            // var jsonDATA = $(this).data().row;            
-            // for (var key in jsonDATA){
-            //     var name = key;
-            //     var value = jsonDATA[key];
-            //     var formGroup = $('<div class="form-group"></div>');
-            //     formGroup.append('<label for="'+name+'">'+name+'</label>');
-            //     formGroup.append('<input class="form-control" name="'+name+'" id="'+name+'" value="'+value+'" />'); 
-            //     modalForm.append(formGroup);
-            // }
-            // modalBody.append(modalForm);
-            // $('.modal-body').html(modalBody);     
-            
+        {            
             localStorage.setItem("editMode", "true");
-            localStorage.setItem("row", $(this).data().row);
-            document.location.href = "./form.html"
-
-            // mach eine localStorage Variable die EDITIEREN = TRUE setzt
-            // speichere zustzlich ins localStorage die row ab
-            // gehe zur form
-            
-
-            // $.post("form.html", function(data){
-            //     var formGroup = $('<div class="form-group"></div>');
-            //     var body=data.replace(/^.*?<body>(.*?)<\/body>.*?$/s,"$1");
-            //     formGroup.append(body);
-            //     modalForm.append(formGroup);
-            //     modalBody.append(modalForm);
-
-            //     console.log(modalBody);
-            //     //console.log(body);
-            //     $(".modal-body").html(modalBody);
-            
-            // });
+            localStorage.setItem("row", JSON.stringify($(this).data().row));
+            goToForm();
         });
     });
 
