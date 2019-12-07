@@ -15,9 +15,17 @@ $(document).ready(function(){
             characters: 2
         },
         formatters:{ // code inspired by http://www.jquery-bootgrid.com/Examples#more
-            "commands":function(column, row)
-            {
-                return "<button type='button' class='btn btn-success btn-s command-edit' data-row='"+JSON.stringify(row)+"'>Editieren</button>";
+            "date": function (column, row) {
+                if (!row[column.id]) {
+                    return '';
+                }
+
+                const date = new Date(row[column.id]);
+                const options = {year: 'numeric', month: '2-digit', day: '2-digit'};
+                return date.toLocaleDateString('de-AT', options);
+            },
+            "commands": function (column, row) {
+                return "<button type='button' class='btn btn-success btn-s command-edit' data-row='" + JSON.stringify(row) + "'>Editieren</button>";
             }
         },
         labels: {
