@@ -14,6 +14,12 @@ $(document).ready(function(){
             delay: 50,
             characters: 2
         },
+        formatters:{ // code inspired http://www.jquery-bootgrid.com/Examples#more
+            "commands":function(column, row)
+            {
+                return "<button type='button' class='btn btn-success btn-s command-edit data-row='"+JSON.stringify(row)+"'>Edit</button>";
+            }
+        },
         labels: {
             all: "Alle",
             infos: "Zeigt {{ctx.total}} Einträgen",
@@ -21,7 +27,16 @@ $(document).ready(function(){
             noResults: "Keine Daten",
             search: "Suchen"
         }
-    });
+    }).on("loaded.rs.jquery.bootgrid", function()
+    {
+        /* Executes after data is loaded and rendered */
+        dataTable.find(".command-edit").on("click", function(e)
+        {
+            // alert("You pressed edit on row: " + JSON.stringify($(this).data()));
+            // console.log($(this).data());   
+            
+        });
+    });;
 
     function ajaxLoadData() {
         if (this.readyState == 4 && this.status == 200) {
