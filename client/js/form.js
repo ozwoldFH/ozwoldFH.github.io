@@ -25,8 +25,10 @@ function changeFormToEditMode(){
         var value = jsonDATA[key];
         if(name != "id") {
             if(name.toLowerCase().endsWith("datetime")) {
-                const date = new Date(value);
-                document.getElementsByName(key)[0].value = date.toISOString().split('T')[0];
+                if (value) {
+                    const date = new Date(value);
+                    document.getElementsByName(key)[0].value = date.toISOString().split('T')[0];
+                }
             }
             else {
                 document.getElementsByName(key)[0].value = value;
@@ -162,9 +164,7 @@ function postData(json){
 
 function ajaxPutData() {
     if (this.readyState == 4 && this.status == 200) {
-        console.log("Data was sent.");
         const responseJSON = JSON.parse(this.responseText);
-        console.log(responseJSON);
 
         if(responseJSON.hasOwnProperty('result')){
             if(responseJSON.result.length == 0) {
