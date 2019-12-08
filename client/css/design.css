@@ -174,14 +174,14 @@ input:valid {
     display: none;
   }
 
-  table.web-and-mobile tr, th {
+  table.web-and-mobile tr {
     padding: 2px;
     display: block;
     margin: .5rem 0 1rem;
     box-shadow: 0 2px 2px 0 #808080 ,0 2px 5px 0 #808080;
   }
 
-  table.web-and-mobile td, th {
+  table.web-and-mobile td {
     display: block;
     text-align: left;
     border-bottom: 1px solid #ccc;
