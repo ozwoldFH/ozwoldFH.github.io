@@ -50,6 +50,9 @@ function addData(){
     let missingInput="";
     for(var i=0; i< 11; i++){
         var item = elements.item(i);
+        if((item.name === 'addedDateTime' || item.name === 'nextServiceDateTime' || item.name === 'lastServiceDateTime')  && item.value !== ''){
+            validateDate(item.value);
+        }
         if(item.name === "nextServiceDateTime" && item.value < today && item.value !== ""){
             confirm("Datum für das nächste Service liegt in der Vergangenheit.")
             return
@@ -112,6 +115,15 @@ function addData(){
     }
 
 
+}
+
+// date validation for safari
+function validateDate(date){
+    let pattern = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
+
+    if(!pattern.test(date)){
+        confirm('Invalides Datum: Datum sollte gültig und im Brower Safari im YYYY-MM-DD Format sein!')
+    }
 }
 
 function ajaxPostData() {
