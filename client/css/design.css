@@ -105,6 +105,12 @@ input:valid {
   margin-top: 10px;
 }
 
+html,body
+{
+   min-width: 1580px;
+   width: 100%;
+}
+
 #json-output {
   margin-top: 20px;;
 }

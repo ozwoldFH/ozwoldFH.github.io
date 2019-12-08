@@ -35,7 +35,6 @@ const server = http.createServer(async (request, response) => {
     //     response.end(JSON.stringify(result));
     // }
 
-    console.log("method: " + request.method);
     if (startsWith(requestUrl.pathname, '/inventory') && request.method === 'PUT') {
         var dataJSON = [];
         var data = '';
