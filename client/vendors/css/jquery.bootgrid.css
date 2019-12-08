@@ -13,9 +13,7 @@
 }
 .bootgrid-header .search,
 .bootgrid-footer .search {
-  display: inline-block;
-  margin: 0 20px 0 0;
-  vertical-align: middle;
+  margin: 80px 0 0 0;
   width: 180px;
 }
 .bootgrid-header .search .glyphicon,
