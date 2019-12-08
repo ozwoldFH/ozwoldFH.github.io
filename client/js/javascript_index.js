@@ -10,6 +10,24 @@ $(document).ready(function(){
         caseSensitive: false,
         columnSelection: false,
         rowCount: -1,
+        searchSettings: {
+            delay: 50,
+            characters: 2
+        },
+        formatters:{ // code inspired by http://www.jquery-bootgrid.com/Examples#more
+            "date": function (column, row) {
+                if (!row[column.id]) {
+                    return '';
+                }
+
+                const date = new Date(row[column.id]);
+                const options = {year: 'numeric', month: '2-digit', day: '2-digit'};
+                return date.toLocaleDateString('de-AT', options);
+            },
+            "commands": function (column, row) {
+                return "<button type='button' class='btn btn-success btn-s command-edit' data-row='" + JSON.stringify(row) + "'>Editieren</button>";
+            }
+        },
         labels: {
             all: "Alle",
             infos: "Zeigt {{ctx.total}} Einträgen",
@@ -17,6 +35,14 @@ $(document).ready(function(){
             noResults: "Keine Daten",
             search: "Suchen"
         }
+    }).on("loaded.rs.jquery.bootgrid", function()
+    {
+        dataTable.find(".command-edit").on("click", function(e)
+        {            
+            localStorage.setItem("editMode", "true");
+            localStorage.setItem("row", JSON.stringify($(this).data().row));
+            goToForm();
+        });
     });
 
     function ajaxLoadData() {

@@ -8,7 +8,7 @@ async function get() {
         return {
             id: item.id,
             name: item.item_name || '',
-            weightKg: item.weight || 0,
+            weight: item.weight || 0,
             description: item.description || '',
             location: item.location || '',
             room: item.room || '',

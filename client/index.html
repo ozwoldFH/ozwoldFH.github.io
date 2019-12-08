@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+<html lang="de">
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <title>Inventory</title>
     <link rel="stylesheet" type="text/css" href="css/design.css" />
-    <link rel="stylesheet" type="text/css" href="css/print.css" />
+    <link rel="stylesheet" type="text/css" href="css/print.css" />  
     <link rel="stylesheet" href="vendors/css/fontawesome.min.css"/>
     <link href="vendors/css/bootstrap.css" rel="stylesheet" />
     <link href="vendors/css/jquery.bootgrid.css" rel="stylesheet" />
@@ -18,32 +19,31 @@
 
 <body>
     <h1>Inventar</h1>
-    <!-- <button id="addDataButton" type="button" onclick="goToForm()">Daten hinzufügen</button>
-    <button id="printButton" type="button" onclick="window.print();return false;">Drucken</button> -->
 
+    <!-- <div class="table-responsive"> -->
     <div>
         <table id="grid" class="table table-condensed table-hover table-striped" data-selection="true"
             data-multi-select="true" data-row-select="true" data-keep-selection="true">
             <thead>
                 <tr>
-                    <th data-column-id="id" data-type="numeric" style="width:10px;">ID</th>
-                    <th data-column-id="name">Name</th>
-                    <th data-column-id="weightKg" data-type="numeric">Gewicht [kg]</th>
-                    <th data-column-id="description">Beschreibung</th>
-                    <th data-column-id="location">Standort</th>
-                    <th data-column-id="room">Raum</th>
-                    <th data-column-id="type">Typ</th>
-                    <th data-column-id="addedDateTime">Hinzugefügt am</th>
-                    <th data-column-id="addedBy">Hinzugefügt von</th>
-                    <th data-column-id="lastServiceDateTime">Letzter Service</th>
-                    <th data-column-id="lastServiceBy">Letzter Service von</th>
-                    <th data-column-id="nextServiceDateTime">Nächstes Service</th>
+                    <th data-width="150px" data-column-id="name">Name</th>
+                    <th data-width="150px" data-column-id="weight" data-type="numeric">Gewicht [kg]</th>
+                    <th data-width="150px" data-column-id="description">Beschreibung</th>
+                    <th data-width="150px" data-column-id="location">Standort</th>
+                    <th data-width="150px" data-column-id="room">Raum</th>
+                    <th data-width="150px" data-column-id="type">Typ</th>
+                    <th data-width="150px" data-column-id="addedDateTime" data-formatter="date">Hinzugefügt am</th>
+                    <th data-width="150px" data-column-id="addedBy">Hinzugefügt von</th>
+                    <th data-width="150px" data-column-id="lastServiceDateTime" data-formatter="date">Letzter Service</th>
+                    <th data-width="150px" data-column-id="lastServiceBy">Letzter Service von</th>
+                    <th data-width="150px" data-column-id="nextServiceDateTime" data-formatter="date">Nächstes Service</th>
+                    <th data-width="150px" data-column-id="commands" data-formatter="commands" data-sortable="false" data-searchable="false">Befehle</th>
                 </tr>
             </thead>
         </table>
     </div>
 
-    <script type="text/javascript">
+    <script>
     </script>
 </body>
 

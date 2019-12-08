@@ -28,11 +28,28 @@ const server = http.createServer(async (request, response) => {
         response.writeHead(200, {'content-type': 'application/json; charset=utf-8'});
         response.end(JSON.stringify(data));
     }
-    const inventoryId = Number(requestUrl.pathname.substring(11, requestUrl.pathname.length));
-    if (startsWith(requestUrl.pathname, '/inventory/') && Number.isInteger(inventoryId) && request.method === 'PUT') {
-        const result = await putInventory({id: inventoryId, ...requestUrl.query});
-        response.writeHead(200, {'content-type': 'application/json; charset=utf-8'});
-        response.end(JSON.stringify(result));
+    // const inventoryId = Number(requestUrl.pathname.substring(11, requestUrl.pathname.length));
+    // if (startsWith(requestUrl.pathname, '/inventory/') && Number.isInteger(inventoryId) && request.method === 'PUT') {
+    //     const result = await putInventory({id: inventoryId, ...requestUrl.query});
+    //     response.writeHead(200, {'content-type': 'application/json; charset=utf-8'});
+    //     response.end(JSON.stringify(result));
+    // }
+    if (startsWith(requestUrl.pathname, '/inventory') && request.method === 'PUT') {
+        var dataJSON = [];
+        var data = '';
+        request.on('data', function (chunk) {
+            data += chunk;
+        });
+
+        request.on('end', async function () {
+            dataJSON = JSON.parse(data);
+            console.log(dataJSON);
+            const result = await putInventory(dataJSON);
+            response.writeHead(200, {'content-type': 'application/json; charset=utf-8'});
+            response.end(JSON.stringify(result));
+            console.log(JSON.stringify(result));
+        });  
+        return; 
     }
     if (requestUrl.pathname === '/inventory' && request.method === 'POST') {
         var dataJSON = [];
@@ -43,6 +60,7 @@ const server = http.createServer(async (request, response) => {
 
         request.on('end', async function () {
             dataJSON = JSON.parse(data);
+            console.log(dataJSON);
             const result = await postInventory(dataJSON);
             response.writeHead(200, {'content-type': 'application/json; charset=utf-8'});
             response.end(JSON.stringify(result));
