@@ -171,8 +171,12 @@
 
         function containsPhrase(row)
         {
-            var column,
-                searchPattern = new RegExp(that.searchPhrase, (that.options.caseSensitive) ? "g" : "gi");
+            try {
+                var column,
+                    searchPattern = new RegExp(that.searchPhrase, (that.options.caseSensitive) ? "g" : "gi");
+            } catch (error) {
+                return;
+            }
 
             for (var i = 0; i < that.columns.length; i++)
             {
