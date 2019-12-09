@@ -2,10 +2,26 @@
  * Print Stylesheet
 */
 
-table { 
-  page-break-inside:avoid; 
+table {
+  page-break-inside: avoid;
 }
 
 td {
   border-bottom: 1px solid #ccc;
+}
+
+#page-header {
+  display: none;
+}
+
+#grid-header {
+  display: none;
+}
+
+#grid > thead > tr > th:nth-child(12) {
+  display: none;
+}
+
+#grid > tbody > tr > td:nth-child(12) {
+  display: none;
 }
