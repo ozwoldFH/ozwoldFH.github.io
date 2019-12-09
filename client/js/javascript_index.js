@@ -34,7 +34,7 @@ $(document).ready(function(){
         },
         labels: {
             all: "Alle",
-            infos: "Zeigt {{ctx.total}} Einträgen",
+            infos: "",
             loading: "Laden...",
             noResults: "Keine Daten",
             search: "Suchen"
