@@ -24,6 +24,10 @@ $(document).ready(function(){
                 const options = {year: 'numeric', month: '2-digit', day: '2-digit'};
                 return date.toLocaleDateString('de-AT', options);
             },
+            "trim": function (column, row) {
+                const value = row[column.id];
+                return value.length > 20 ? value.substring(0, 20) + '...' : value;
+            },
             "commands": function (column, row) {
                 return "<button type='button' class='btn btn-success btn-s command-edit' data-row='" + JSON.stringify(row) + "'>Editieren</button>";
             }
