@@ -34,6 +34,7 @@ const server = http.createServer(async (request, response) => {
     //     response.writeHead(200, {'content-type': 'application/json; charset=utf-8'});
     //     response.end(JSON.stringify(result));
     // }
+
     if (startsWith(requestUrl.pathname, '/inventory') && request.method === 'PUT') {
         var dataJSON = [];
         var data = '';

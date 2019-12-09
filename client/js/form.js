@@ -109,11 +109,11 @@ function addData(){
     let json = JSON.stringify(obj);
     //document.getElementById("json-output").innerHTML = json;
 
-    if(editMode == true) {
-        postData(json);
+    if(editMode == "true") {
+        putData(json);
     }
     else {
-        putData(json);
+        postData(json);
     }
 
 

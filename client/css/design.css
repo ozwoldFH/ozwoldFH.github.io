@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @media only screen and (min-width: 961px) {
 
     body {
@@ -187,6 +188,171 @@
     .form-group{
         margin-right: -20px;
     }
+=======
+body {
+    background-color: white;
+}
+
+h1 {
+    color: black;
+    text-align: center;
+    font-size: 50px;
+    font-family: "Helvetica";
+}
+
+p {
+    font-family: "Helvetica";
+    font-size: 20px;
+}
+
+tr{
+    margin-left:10px;
+    font-size: 14px;
+    font-family: "Helvetica";
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+th{
+    font-size: 16px;
+    background-color: lightgrey;
+    color: white;
+    height: 40px;
+}
+
+table{
+    margin-top:20px;
+    border-spacing: unset;
+}
+
+td{
+    height: 25px;
+    text-align: left;
+}
+
+td, th {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+#addDataButton{
+    background-color: lightgrey;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    float: left;
+}
+
+#printButton{
+    background-color: dimgrey;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    float: left;
+}
+
+#searchInput{
+    width: 22%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    float: right;
+}
+
+input:required {
+    width: 20%;
+    height: 20px;
+  border:0.5px solid tomato;
+}
+
+input:valid {
+    width: 20%;
+    height: 20px;
+  border:0.5px solid grey;
+}
+
+.col-20 {
+  float: left;
+  width: 20%;
+  margin-top: 10px;
+  font-size: 14px;
+  font-family: "Helvetica";
+}
+
+.col-80 {
+  float: left;
+  width: 80%;
+  margin-top: 10px;
+}
+
+html,body
+{
+   min-width: 1580px;
+   width: 100%;
+}
+
+#json-output {
+  margin-top: 20px;;
+}
+
+.col-100{
+  float: left;
+  width: 100%;
+  margin-top: 10px;
+  font-size: 14px;
+  font-family: "Helvetica";
+}
+
+#back-button{
+  font-family: "Helvetica";
+  background-color: lightgrey;
+  margin-top: 20px;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  color: white;
+}
+
+#submitDataButton{
+    font-family: "Helvetica";
+    background-color: dimgrey;
+    margin-top: 20px;
+    margin-left: 12.5%;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    color: white;
+}
+
+#submitDataButton:disabled{
+  background-color: grey; /* Grey */
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+
+@media screen and (max-width: 600px) {
+
+>>>>>>> master
   .col-20 {
     width: 100%;
     margin-top: 20px;
@@ -206,14 +372,14 @@
     display: none;
   }
 
-  table.web-and-mobile tr, th {
+  table.web-and-mobile tr {
     padding: 2px;
     display: block;
     margin: .5rem 0 1rem;
     box-shadow: 0 2px 2px 0 #808080 ,0 2px 5px 0 #808080;
   }
 
-  table.web-and-mobile td, th {
+  table.web-and-mobile td {
     display: block;
     text-align: left;
     border-bottom: 1px solid #ccc;

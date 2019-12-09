@@ -69,6 +69,7 @@ $(document).ready(function(){
     $("#grid-header").find('.actionBar').prepend('<button id="addDataButton" type="button" onclick="window.print();return false;">Drucken</button>');
     $("#grid-header").find('.actionBar').prepend('<button id="printButton" type="button" onclick="goToForm()">Daten hinzufügen</button>');
     $("#grid-header").find('.fa-search').remove();       
+    $("#grid-header").find('.form-control').css('height', '52px');
     //$('#grid-header').find('.form-control').css({'border': 'none', 'padding':'15px 32px', 'text-align': 'center','text-decoration': 'none', 'display': 'inline-block','font-size': '16px'});
 
 });
