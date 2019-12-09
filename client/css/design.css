@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 @media only screen and (min-width: 961px) {
 
     body {
@@ -159,7 +159,7 @@
 
 @media only screen and (max-width: 600px) {
 
-    h1{
+    h1 {
         text-align: center;
     }
 
@@ -169,229 +169,227 @@
         flex-wrap: wrap;
     }
 
-    searchInput{
-        width:20%;
+    searchInput {
+        width: 20%;
         height: 20px;
         font-size: 20px;
     }
 
-    #addDataButton{
+    #addDataButton {
         height: 20px;
         width: 50px;
     }
 
-    #back-button{
+    #back-button {
         height: 20px;
         width: 50px;
     }
 
-    .form-group{
+    .form-group {
         margin-right: -20px;
     }
-=======
-body {
-    background-color: white;
-}
 
-h1 {
-    color: black;
-    text-align: center;
-    font-size: 50px;
-    font-family: "Helvetica";
-}
+    body {
+        background-color: white;
+    }
 
-p {
-    font-family: "Helvetica";
-    font-size: 20px;
-}
+    h1 {
+        color: black;
+        text-align: center;
+        font-size: 50px;
+        font-family: "Helvetica";
+    }
 
-tr{
-    margin-left:10px;
-    font-size: 14px;
-    font-family: "Helvetica";
-}
+    p {
+        font-family: "Helvetica";
+        font-size: 20px;
+    }
 
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
+    tr {
+        margin-left: 10px;
+        font-size: 14px;
+        font-family: "Helvetica";
+    }
 
-th{
-    font-size: 16px;
-    background-color: lightgrey;
-    color: white;
-    height: 40px;
-}
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
 
-table{
-    margin-top:20px;
-    border-spacing: unset;
-}
+    th {
+        font-size: 16px;
+        background-color: lightgrey;
+        color: white;
+        height: 40px;
+    }
 
-td{
-    height: 25px;
-    text-align: left;
-}
+    table {
+        margin-top: 20px;
+        border-spacing: unset;
+    }
 
-td, th {
-    padding: 10px;
-    border: 1px solid #ccc;
-    text-align: left;
-}
+    td {
+        height: 25px;
+        text-align: left;
+    }
 
-#addDataButton{
-    background-color: lightgrey;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    float: left;
-}
+    td, th {
+        padding: 10px;
+        border: 1px solid #ccc;
+        text-align: left;
+    }
 
-#printButton{
-    background-color: dimgrey;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    float: left;
-}
+    #addDataButton {
+        background-color: lightgrey;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        float: left;
+    }
 
-#searchInput{
-    width: 22%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    float: right;
-}
+    #printButton {
+        background-color: dimgrey;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        float: left;
+    }
 
-input:required {
-    width: 20%;
-    height: 20px;
-  border:0.5px solid tomato;
-}
+    #searchInput {
+        width: 22%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        float: right;
+    }
 
-input:valid {
-    width: 20%;
-    height: 20px;
-  border:0.5px solid grey;
-}
+    input:required {
+        width: 20%;
+        height: 20px;
+        border: 0.5px solid tomato;
+    }
 
-.col-20 {
-  float: left;
-  width: 20%;
-  margin-top: 10px;
-  font-size: 14px;
-  font-family: "Helvetica";
-}
+    input:valid {
+        width: 20%;
+        height: 20px;
+        border: 0.5px solid grey;
+    }
 
-.col-80 {
-  float: left;
-  width: 80%;
-  margin-top: 10px;
-}
+    .col-20 {
+        float: left;
+        width: 20%;
+        margin-top: 10px;
+        font-size: 14px;
+        font-family: "Helvetica";
+    }
 
-html,body
-{
-   min-width: 1580px;
-   width: 100%;
-}
+    .col-80 {
+        float: left;
+        width: 80%;
+        margin-top: 10px;
+    }
 
-#json-output {
-  margin-top: 20px;;
-}
+    html, body {
+        min-width: 1580px;
+        width: 100%;
+    }
 
-.col-100{
-  float: left;
-  width: 100%;
-  margin-top: 10px;
-  font-size: 14px;
-  font-family: "Helvetica";
-}
+    #json-output {
+        margin-top: 20px;;
+    }
 
-#back-button{
-  font-family: "Helvetica";
-  background-color: lightgrey;
-  margin-top: 20px;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  color: white;
-}
+    .col-100 {
+        float: left;
+        width: 100%;
+        margin-top: 10px;
+        font-size: 14px;
+        font-family: "Helvetica";
+    }
 
-#submitDataButton{
-    font-family: "Helvetica";
-    background-color: dimgrey;
-    margin-top: 20px;
-    margin-left: 12.5%;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    color: white;
-}
+    #back-button {
+        font-family: "Helvetica";
+        background-color: lightgrey;
+        margin-top: 20px;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        color: white;
+    }
 
-#submitDataButton:disabled{
-  background-color: grey; /* Grey */
-  border: none;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-}
+    #submitDataButton {
+        font-family: "Helvetica";
+        background-color: dimgrey;
+        margin-top: 20px;
+        margin-left: 12.5%;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        color: white;
+    }
+
+    #submitDataButton:disabled {
+        background-color: grey; /* Grey */
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+    }
 
 
-@media screen and (max-width: 600px) {
+    @media screen and (max-width: 600px) {
+        .col-20 {
+            width: 100%;
+            margin-top: 20px;
+        }
 
->>>>>>> master
-  .col-20 {
-    width: 100%;
-    margin-top: 20px;
-  }
+        .col-80 {
+            width: 100%;
+            margin-top: 0;
+        }
 
-  .col-80 {
-    width: 100%;
-    margin-top: 0;
-  }
+        .col-100 {
+            width: 100%;
+            margin-top: 20px;
+        }
 
-  .col-100 {
-    width: 100%;
-    margin-top: 20px;
-  }
+        table.web-and-mobile thead {
+            display: none;
+        }
 
-  table.web-and-mobile thead {
-    display: none;
-  }
+        table.web-and-mobile tr {
+            padding: 2px;
+            display: block;
+            margin: .5rem 0 1rem;
+            box-shadow: 0 2px 2px 0 #808080, 0 2px 5px 0 #808080;
+        }
 
-  table.web-and-mobile tr {
-    padding: 2px;
-    display: block;
-    margin: .5rem 0 1rem;
-    box-shadow: 0 2px 2px 0 #808080 ,0 2px 5px 0 #808080;
-  }
+        table.web-and-mobile td {
+            display: block;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
 
-  table.web-and-mobile td {
-    display: block;
-    text-align: left;
-    border-bottom: 1px solid #ccc;
-  }
+        table.web-and-mobile td:before {
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+        }
 
-  table.web-and-mobile td:before {
-    content: attr(data-label);
-    float: left;
-    font-weight: bold;
-  }
-
-  table.web-and-mobile td:last-child {
-    border-bottom: 0;
-  }
+        table.web-and-mobile td:last-child {
+            border-bottom: 0;
+        }
+    }
 }
