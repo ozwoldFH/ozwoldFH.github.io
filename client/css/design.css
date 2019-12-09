@@ -1,5 +1,4 @@
 
-@media only screen and (min-width: 961px) {
 
     body {
         background-color: white;
@@ -155,39 +154,9 @@
         display: inline-block;
         font-size: 16px;
     }
-}
 
-@media only screen and (max-width: 600px) {
 
-    h1 {
-        text-align: center;
-    }
-
-    div.actionbar {
-        background-color: grey;
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    searchInput {
-        width: 20%;
-        height: 20px;
-        font-size: 20px;
-    }
-
-    #addDataButton {
-        height: 20px;
-        width: 50px;
-    }
-
-    #back-button {
-        height: 20px;
-        width: 50px;
-    }
-
-    .form-group {
-        margin-right: -20px;
-    }
+@media screen and (max-width: 600px) {
 
     body {
         background-color: white;
@@ -236,30 +205,6 @@
         padding: 10px;
         border: 1px solid #ccc;
         text-align: left;
-    }
-
-    #addDataButton {
-        background-color: lightgrey;
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        float: left;
-    }
-
-    #printButton {
-        background-color: dimgrey;
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        float: left;
     }
 
     #searchInput {
