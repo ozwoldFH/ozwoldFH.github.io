@@ -25,8 +25,8 @@ $(document).ready(function(){
                 return date.toLocaleDateString('de-AT', options);
             },
             "trim": function (column, row) {
-                const value = row[column.id];
-                return value.length > 20 ? value.substring(0, 20) + '...' : value;
+                
+                return "<input type='text' style='max-width: 135px; background: transparent; border: none; outline: none;' readonly disabled value='"+row[column.id]+"'></input>";
             },
             "commands": function (column, row) {
                 return "<button type='button' class='btn btn-success btn-s command-edit' data-row='" + JSON.stringify(row) + "'>Editieren</button>";
