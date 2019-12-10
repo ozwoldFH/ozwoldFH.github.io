@@ -105,12 +105,6 @@ input:valid {
     margin-top: 10px;
 }
 
-html,body
-{
-    min-width: 1580px;
-    width: 100%;
-}
-
 #json-output {
     margin-top: 20px;;
 }
@@ -158,48 +152,12 @@ html,body
     font-size: 16px;
 }
 
-
-@media screen and (max-width: 600px) {
-
-    .col-20 {
-        width: 100%;
-        margin-top: 20px;
-    }
-
-    .col-80 {
-        width: 100%;
-        margin-top: 0;
-    }
-
-    .col-100 {
-        width: 100%;
-        margin-top: 20px;
-    }
-
-    table.web-and-mobile thead {
-        display: none;
-    }
-
-    table.web-and-mobile tr {
-        padding: 2px;
-        display: block;
-        margin: .5rem 0 1rem;
-        box-shadow: 0 2px 2px 0 #808080 ,0 2px 5px 0 #808080;
-    }
-
-    table.web-and-mobile td {
-        display: block;
-        text-align: left;
-        border-bottom: 1px solid #ccc;
-    }
-
-    table.web-and-mobile td:before {
-        content: attr(data-label);
-        float: left;
-        font-weight: bold;
-    }
-
-    table.web-and-mobile td:last-child {
-        border-bottom: 0;
-    }
+#grid-header {
+    padding-right: 15px;
+    padding-left: 15px;
 }
+
+.search.form-group {
+    float: right;
+}
+

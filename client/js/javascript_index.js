@@ -1,64 +1,111 @@
 "use strict";
 
-$(document).ready(function(){
+const inventory = {};
+let dataTable;
+let tableHeaders;
+let tableRows;
+let lastSearchKey;
+$(document).ready(function () {
     console.log("=== page ready ===");
 
-    // Initializes the element with id grid as bootgrid with some settings
-    // For more information check out Documentation:
-    // http://www.jquery-bootgrid.com/Documentation
-    const dataTable = $("#grid").bootgrid({
-        caseSensitive: false,
-        columnSelection: false,
-        rowCount: -1,
-        searchSettings: {
-            delay: 50,
-            characters: 2
-        },
-        formatters:{ // code inspired by http://www.jquery-bootgrid.com/Examples#more
-            "date": function (column, row) {
-                if (!row[column.id]) {
-                    return '';
-                }
-
-                const date = new Date(row[column.id]);
-                const options = {year: 'numeric', month: '2-digit', day: '2-digit'};
-                return date.toLocaleDateString('de-AT', options);
-            },
-            "trim": function (column, row) {
-                
-                return "<input type='text' style='max-width: 135px; background: transparent; border: none; outline: none;' readonly disabled value='"+row[column.id]+"'></input>";
-            },
-            "commands": function (column, row) {
-                return "<button type='button' class='btn btn-success btn-s command-edit' data-row='" + JSON.stringify(row) + "'>Editieren</button>";
-            }
-        },
-        labels: {
-            all: "Alle",
-            infos: "{{ctx.total}} insgesamt",
-            loading: "Laden...",
-            noResults: "Keine Daten",
-            search: "Suchen"
-        }
-    }).on("loaded.rs.jquery.bootgrid", function()
-    {
-        dataTable.find(".command-edit").on("click", function(e)
-        {            
+    const editRenderer = function (value, record, $cell, $displayEl) {
+        const $btn = $('<button type="button" class="btn btn-success btn-s command-edit">Editieren</button>').on('click', function () {
+            const row = inventory[value];
             localStorage.setItem("editMode", "true");
-            localStorage.setItem("row", JSON.stringify($(this).data().row));
+            localStorage.setItem("row", JSON.stringify(row));
             goToForm();
         });
+        $displayEl.empty().append($btn);
+    };
+    const dateRenderer = function (value, record, $cell, $displayEl) {
+        let formattedDate;
+        if (value) {
+            const date = new Date(value);
+            const options = {year: 'numeric', month: '2-digit', day: '2-digit'};
+            formattedDate = date.toLocaleDateString('de-AT', options);
+        } else {
+            formattedDate = '';
+        }
+
+        $displayEl.empty().append($(`<div>${formattedDate}</div>`));
+    };
+    const dataFilter = function (value, searchStr) {
+        if (searchStr.length < 4) {
+            return true;
+        }
+        const lowerCaseStr = searchStr.toLowerCase();
+        const row = inventory[value];
+        const values = Object.values(row);
+        for (let i = 1; i < values.length; i++) {
+            if (String(values[i]).toLowerCase().includes(lowerCaseStr)) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    dataTable = $("#grid").grid({
+        responsive: true,
+        detailTemplate: '<div></div>',
+        showHiddenColumnsAsDetails: true,
+        notFoundText: 'Keine Einträge',
+        columns: [
+            {field: 'name', title: 'Name', sortable: true},
+            {field: 'weight', title: 'Gewicht [kg]', width: 110, minWidth: 110, priority: 1, sortable: true},
+            {field: 'description', title: 'Beschreibung', minWidth: 120, priority: 2, sortable: true},
+            {field: 'location', title: 'Standort', minWidth: 120, priority: 3, sortable: true},
+            {field: 'room', title: 'Raum', minWidth: 120, priority: 4, sortable: true},
+            {field: 'type', title: 'Typ', minWidth: 100, priority: 5, sortable: true},
+            {
+                field: 'addedDateTime',
+                title: 'Hinzugefügt am',
+                minWidth: 120,
+                priority: 6,
+                type: 'date',
+                renderer: dateRenderer,
+                sortable: true
+            },
+            {field: 'addedBy', title: 'Hinzugefügt von', minWidth: 120, priority: 7, sortable: true},
+            {
+                field: 'lastServiceDateTime',
+                title: 'Letzter Service',
+                minWidth: 120,
+                priority: 7,
+                renderer: dateRenderer,
+                sortable: true
+            },
+            {field: 'lastServiceBy', title: 'Letzter Service von', minWidth: 120, priority: 9, sortable: true},
+            {
+                field: 'nextServiceDateTime',
+                title: 'Nächstes Service',
+                minWidth: 120,
+                priority: 10,
+                type: 'date',
+                renderer: dateRenderer,
+                sortable: true
+            },
+            {field: 'id', title: '', width: 120, renderer: editRenderer, filter: dataFilter},
+        ],
+    });
+    tableHeaders = dataTable.children()[0].children[0].children;
+    tableRows = dataTable.children()[1].children;
+    dataTable.on('resize', function () {
+        checkColumnsCount();
     });
 
     function ajaxLoadData() {
         if (this.readyState == 4 && this.status == 200) {
             const dataJSON = JSON.parse(this.responseText);
-            dataTable.bootgrid("append", dataJSON);
+            dataJSON.forEach(item => {
+                inventory[item.id] = {...item};
+                dataTable.addRow(item);
+            });
+            checkColumnsCount();
         }
     }
 
     function loadData() {
         const ajaxObject = new XMLHttpRequest();
-        //const ajaxURL = "https://raw.githubusercontent.com/ozwoldFH/webapp_inventory_WS2019/master/data/data.json";
         const ajaxURL = "./inventory";
         ajaxObject.onreadystatechange = ajaxLoadData;
         ajaxObject.open("GET", ajaxURL, true);
@@ -69,19 +116,41 @@ $(document).ready(function(){
 
     // call function
     loadData();
-
-    $("#grid-header").find('.actionBar').prepend('<button id="addDataButton" type="button" onclick="window.print();return false;">Drucken</button>');
-    $("#grid-header").find('.actionBar').prepend('<button id="printButton" type="button" onclick="goToForm()">Daten hinzufügen</button>');
-    $("#grid-header").find('.fa-search').remove();       
-    $("#grid-header").find('.form-control').css('height', '52px');
-    //$('#grid-header').find('.form-control').css({'border': 'none', 'padding':'15px 32px', 'text-align': 'center','text-decoration': 'none', 'display': 'inline-block','font-size': '16px'});
-
+    checkColumnsCount();
 });
+
+function checkColumnsCount() {
+    let viewsAllColumns = true;
+    for (let i = 1; i < tableHeaders.length; i++) {
+        if (tableHeaders.item(i).style["display"] === "none") {
+            viewsAllColumns = false;
+            break;
+        }
+    }
+
+    const detailRowsDisplay = viewsAllColumns ? "none" : null;
+    tableHeaders.item(0).style["width"] = viewsAllColumns ? "0px" : null;
+
+    for (let i = 0; i < tableRows.length; i++) {
+        const row = tableRows.item(i);
+        if (row.getAttribute("data-role") === "details") {
+            row.style["display"] = detailRowsDisplay;
+        }
+    }
+}
+
+function onSearch() {
+    let currentSearchKey = $('#searchBox').val();
+    if (currentSearchKey.length < 4) {
+        currentSearchKey = '';
+    }
+    if (currentSearchKey !== lastSearchKey) {
+        dataTable.reload({id: currentSearchKey});
+        lastSearchKey = currentSearchKey;
+    }
+}
 
 function goToForm() {
     document.location.href = "./form.html"
 }
-
-
-
 

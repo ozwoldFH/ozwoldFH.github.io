@@ -4,46 +4,37 @@
 <head>
     <meta charset="utf-8" />
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <title>Inventar</title>
+    <title>Inventory</title>
     <link rel="stylesheet" type="text/css" href="css/design.css" />
     <link media="print" rel="stylesheet" type="text/css" href="css/print.css" />
     <link rel="stylesheet" href="vendors/css/fontawesome.min.css"/>
     <link href="vendors/css/bootstrap.css" rel="stylesheet" />
-    <link href="vendors/css/jquery.bootgrid.css" rel="stylesheet" />
-    <script src="vendors/js/jquery-1.11.1.min.js"></script>
-    <script src="vendors/js/bootstrap.js"></script>
-    <script src="vendors/js/jquery.bootgrid.js"></script>
-    <script src="vendors/js/jquery.bootgrid.fa.js"></script>
+    <script src="vendors/js/jquery-3-2-1.js"></script>
+    <script src="vendors/js/gijgo.core.js" type="text/javascript"></script>
+    <link href="vendors/css/gijgo.core.css" rel="stylesheet" type="text/css" />
+    <link href="vendors/css/gijgo.grid.css" rel="stylesheet" type="text/css" />
+    <script src="vendors/js/gijgo.grid.js" type="text/javascript"></script>
     <script src="js/javascript_index.js"></script>
 </head>
 
 <body>
-    <h1 id="page-header">Inventar</h1>
+    <h1>Inventar</h1>
 
-    <!-- <div class="table-responsive"> -->
+    <div id="grid-header">
+        <button id="addDataButton" type="button" onclick="window.print();return false;">Drucken</button>
+        <button id="printButton" type="button" onclick="goToForm()">Daten hinzufügen</button>
+        <div class="search form-group">
+            <div class="input-group">
+                <input type="text" id="searchBox" class="search-field form-control" placeholder="Suchen" style="height: 52px;" onkeyup="onSearch()">
+            </div>
+        </div>
+    </div>
     <div>
-        <table id="grid" class="table table-condensed table-hover table-striped" data-selection="true"
-            data-multi-select="true" data-row-select="true" data-keep-selection="true">
-            <thead>
-                <tr>
-                    <th data-width="150px" data-column-id="name" data-formatter="trim">Name</th>
-                    <th data-width="150px" data-column-id="weight" data-formatter="trim" data-type="numeric">Gewicht [kg]</th>
-                    <th data-width="150px" data-column-id="description" data-formatter="trim">Beschreibung</th>
-                    <th data-width="150px" data-column-id="location" data-formatter="trim">Standort</th>
-                    <th data-width="150px" data-column-id="room" data-formatter="trim">Raum</th>
-                    <th data-width="150px" data-column-id="type" data-formatter="trim">Typ</th>
-                    <th data-width="150px" data-column-id="addedDateTime" data-formatter="date">Hinzugefügt am</th>
-                    <th data-width="150px" data-column-id="addedBy" data-formatter="trim">Hinzugefügt von</th>
-                    <th data-width="150px" data-column-id="lastServiceDateTime" data-formatter="date">Letzter Service</th>
-                    <th data-width="150px" data-column-id="lastServiceBy" data-formatter="trim">Letzter Service von</th>
-                    <th data-width="150px" data-column-id="nextServiceDateTime" data-formatter="date">Nächstes Service</th>
-                    <th data-width="150px" data-column-id="commands" data-formatter="commands" data-sortable="false" data-searchable="false">Befehle</th>
-                </tr>
-            </thead>
+        <table id="grid">
         </table>
     </div>
 
-    <script>
+    <script type="text/javascript">
     </script>
 </body>
 

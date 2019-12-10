@@ -10,6 +10,10 @@ td {
   border-bottom: 1px solid #ccc;
 }
 
+#grid > thead > tr > th:nth-child(13) {
+  width: 0px;
+}
+
 #page-header {
   display: none;
 }
