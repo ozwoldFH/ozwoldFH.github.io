@@ -6,6 +6,7 @@ const startsWith = require('./server/helper/startsWith');
 const getInventory = require('./server/inventory/get');
 const postInventory = require('./server/inventory/post');
 const putInventory = require('./server/inventory/put');
+const deleteInventory = require('./server/inventory/delete');
 
 const server = http.createServer(async (request, response) => {
     const requestUrl = url.parse(request.url, true);
@@ -49,8 +50,8 @@ const server = http.createServer(async (request, response) => {
             response.writeHead(200, {'content-type': 'application/json; charset=utf-8'});
             response.end(JSON.stringify(result));
             console.log(JSON.stringify(result));
-        });  
-        return; 
+        });
+        return;
     }
     if (requestUrl.pathname === '/inventory' && request.method === 'POST') {
         var dataJSON = [];
@@ -66,8 +67,26 @@ const server = http.createServer(async (request, response) => {
             response.writeHead(200, {'content-type': 'application/json; charset=utf-8'});
             response.end(JSON.stringify(result));
             console.log(JSON.stringify(result));
-        });  
-        return;     
+        });
+        return;
+    }
+    if (requestUrl.pathname === '/inventory' && request.method === 'DELETE') {
+        var dataJSON = [];
+        var data = '';
+        request.on('data', function (chunk) {
+            data += chunk;
+        });
+
+        request.on('end', async function () {
+          console.log(JSON.stringify(data));
+            dataJSON = JSON.parse(data);
+            console.log(dataJSON);
+            const result = await deleteInventory(dataJSON);
+            response.writeHead(200, {'content-type': 'application/json; charset=utf-8'});
+            response.end(JSON.stringify(result));
+            console.log(JSON.stringify(result));
+        });
+        return;
     }
 
     response.writeHead(404, {});
