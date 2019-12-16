@@ -136,6 +136,7 @@ function ajaxPostData() {
       if (responseJSON.result.length == 0) {
         window.alert("Daten wurden erfolgreich gespeichert!");
         document.myForm.reset(); //clears form
+        document.location.href = "./index.html"
         return;
       }
     }
@@ -169,6 +170,7 @@ function ajaxPutData() {
     if (responseJSON.hasOwnProperty('result')) {
       if (responseJSON.result.length == 0) {
         window.alert("Daten wurden erfolgreich geändert!");
+        document.location.href = "./index.html"
         return;
       }
     }
