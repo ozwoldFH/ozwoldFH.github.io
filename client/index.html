@@ -22,6 +22,8 @@
     <div id="grid-header">
         <button id="addDataButton" type="button" onclick="window.print();return false;">Drucken</button>
         <button id="printButton" type="button" onclick="goToForm('./form.html')">Daten hinzufügen</button>
+        <button id="csvExportButton" type="button" onclick="downloadCSV()">CSV exportieren</button>
+        <button id="pdfExportButton" type="button" onclick="downloadPDF()">PDF exportieren</button>
         <div class="search form-group">
             <div class="input-group">
                 <input type="text" id="searchBox" class="search-field form-control" placeholder="Suchen" style="height: 52px;" onkeyup="onSearch()">

@@ -5,6 +5,7 @@ let dataTable;
 let tableHeaders;
 let tableRows;
 let lastSearchKey;
+let dataJSON='';
 $(document).ready(function() {
   console.log("=== page ready ===");
 
@@ -127,11 +128,11 @@ $(document).ready(function() {
 
   function ajaxLoadData() {
     if (this.readyState == 4 && this.status == 200) {
-      const dataJSON = JSON.parse(this.responseText);
-      dataJSON.forEach(item => {
-        inventory[item.id] = { ...item };
-        dataTable.addRow(item);
-      });
+        dataJSON = JSON.parse(this.responseText);
+        dataJSON.forEach(item => {
+          inventory[item.id] = { ...item };
+           dataTable.addRow(item);
+          });
       checkColumnsCount();
     }
   }
@@ -184,4 +185,90 @@ function onSearch() {
 
 function goToForm(formURL) {
   document.location.href = formURL;
+}
+
+function convertToCSV(object){
+    let arr = typeof object!= 'object' ? JSON.parse(object) : object;
+    let str='';
+     
+    for(let i =0; i<arr.length; i++){
+        let line = '';
+        let col = '';
+        for(let index in arr[i]){
+            col = arr[i][index];
+                col = typeof col === 'string' ? col.replace(/"/g, '""') : col;
+                col = '"'+col+'";';
+                line += col;  
+        }
+        str += line + '\r\n';
+    }
+    return str;
+}
+
+function exportCSVFile(header, items, name){
+    if(header){
+        items.unshift(header); //put in front
+    }
+
+    //object to JSON
+    let jsonObject = JSON.stringify(items);
+    let csv = convertToCSV(jsonObject);
+    let fileName = name + '.csv';
+
+    let blob = new Blob(["\ufeff", csv]);
+    if(navigator.msSaveBlob){
+        navigator.msSaveBlob(blob, fileName)
+    } else {
+        let link = document.createElement("a");
+        if(link.download !== undefined){
+            let url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", fileName);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    }
+}
+
+function downloadCSV(){
+    let formattedItems = [];
+
+    let headers = {
+        id: 'id',
+        name: 'name',
+        weight: 'weight',
+        description: 'description',
+        location: 'location',
+        type: 'item.type',
+        addedDateTime: 'addedDateTime',
+        addedBy: 'addedBy',
+        lastServiceDateTime: 'lastServiceDateTime',
+        lastServiceBy: 'lastServiceBy',
+        nextServiceDateTime: 'nextServiceDateTime'
+    }
+    
+    dataJSON.forEach((item) => {
+        formattedItems.push({
+            id: item.id,
+            name: item.name,
+            weight: item.weight,
+            description: item.description,
+            location: item.location,
+            type: item.type,
+            addedDateTime: item.addedDateTime,
+            addedBy: item.addedBy,
+            lastServiceDateTime: item.lastServiceDateTime,
+            lastServiceBy: item.lastServiceBy,
+            nextServiceDateTime: item.nextServiceDateTime,
+        });
+    })
+
+    let fileName="InventoryCSV";
+    exportCSVFile(headers, formattedItems, fileName);
+}
+
+function downloadPDF(){
+    alert('to be continued...')
 }
