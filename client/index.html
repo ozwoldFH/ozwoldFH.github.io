@@ -13,6 +13,7 @@
     <link href="vendors/css/gijgo.core.css" rel="stylesheet" type="text/css" />
     <link href="vendors/css/gijgo.grid.css" rel="stylesheet" type="text/css" />
     <script src="vendors/js/gijgo.grid.js" type="text/javascript"></script>
+    <script src="js/helper.js"></script>
     <script src="js/javascript_index.js"></script>
 </head>
 
@@ -21,18 +22,54 @@
 
     <div id="grid-header">
         <button id="addDataButton" type="button" onclick="window.print();return false;">Drucken</button>
-        <button id="printButton" type="button" onclick="goToForm('./form.html')">Daten hinzufügen</button>
+        <button id="printButton" type="button" onclick="goToForm('./form.html')">Hinzufügen</button>
         <button id="csvExportButton" type="button" onclick="downloadCSV()">CSV exportieren</button>
         <button id="pdfExportButton" type="button" onclick="downloadPDF()">PDF exportieren</button>
+        <button id="importDataButton" type="button" onclick="openImportDataOverlay()">Importieren</button>
         <div class="search form-group">
             <div class="input-group">
-                <input type="text" id="searchBox" class="search-field form-control" placeholder="Suchen" style="height: 52px;" onkeyup="onSearch()">
+                <input type="text" id="searchBox" class="search-field form-control" placeholder="Suchen"
+                       style="height: 52px;">
             </div>
         </div>
     </div>
     <div>
         <table id="grid">
         </table>
+    </div>
+
+    <div id="import-overlay">
+        <input type="button" class="btn btn-secondary m-2" id="closeImportOverlayButton"
+               value="Schließen" onclick="closeImportDataOverlay()">
+
+        <div class="import-input-container m-4">
+            <div>
+                <h4 class="import-overlay-text">Datei auswählen</h4>
+                <div class="input-group mb-3">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="importFileInput" accept=".csv">
+                        <label class="custom-file-label" for="importFileInput"
+                               id="importFileLabel">Datei auswählen</label>
+                    </div>
+                    <div class="input-group-append">
+                        <input type="button" class="btn btn-primary" value="Importieren" onclick="importFileCSV()">
+                    </div>
+                </div>
+                <div>
+                    <label id="importFileInfo"></label>
+                </div>
+            </div>
+
+            <div class="mt-5">
+                <h4 class="import-overlay-text">CSV direkt</h4>
+                <textarea id="importRawCsvText"></textarea>
+                <div>
+                    <label id="importRawInfo"></label>
+                </div>
+                <input type="button" class="btn btn-primary" id="importRawCsvButton"
+                       value="Importieren" onclick="importRawCSV()">
+            </div>
+        </div>
     </div>
 
     <script type="text/javascript">

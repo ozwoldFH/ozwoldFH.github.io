@@ -5,21 +5,16 @@ async function deleteRow({id}) {
         const sql = {
             text: `DELETE FROM T_INVENTORY WHERE id = $1;`,
             values: [id]
-        }
-
-        console.log(sql);
+        };
 
         const result = await dbQuery(sql);
-        return { result };
-
+        return result;
     } catch (err) {
-        return {
-            code: 500,
+        throw {
+            code: Number(err.code) || 500,
             message: err.message,
         }
     }
-
-    return {};
 }
 
 module.exports = deleteRow;

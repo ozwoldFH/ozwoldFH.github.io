@@ -22,9 +22,11 @@ async function query(sql) {
             if (err) {
                 reject(err);
             } else {
-                const rows = [];
-                res.rows.forEach(row => rows.push(row));
-                resolve(rows);
+                if (res.rows.length) {
+                    resolve([...res.rows]);
+                } else {
+                    resolve(res.rowCount);
+                }
             }
         });
     });

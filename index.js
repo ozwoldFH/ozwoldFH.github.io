@@ -3,94 +3,83 @@ const url = require('url');
 require('dotenv').config();
 const sendStaticFiles = require('./server/helper/sendStaticFiles');
 const startsWith = require('./server/helper/startsWith');
+const getRequestData = require('./server/helper/getRequestData');
 const getInventory = require('./server/inventory/get');
 const postInventory = require('./server/inventory/post');
 const putInventory = require('./server/inventory/put');
 const deleteInventory = require('./server/inventory/delete');
 
-const server = http.createServer(async (request, response) => {
+async function handleRequest(request, response) {
     const requestUrl = url.parse(request.url, true);
 
     if (requestUrl.pathname === '' || requestUrl.pathname === '/' ||
         requestUrl.pathname === '/index' || requestUrl.pathname === '/index.html') {
         sendStaticFiles('./client/index.html', response);
-        return;
+        return null;
     }
     if (requestUrl.pathname === '/form' || requestUrl.pathname === '/form.html') {
         sendStaticFiles('./client/form.html', response);
-        return;
+        return null;
     }
     if (requestUrl.pathname.includes('.')) {
         sendStaticFiles('./client' + requestUrl.pathname, response);
-        return;
+        return null;
     }
     if (requestUrl.pathname === '/inventory' && request.method === 'GET') {
         const data = await getInventory();
-        response.writeHead(200, {'content-type': 'application/json; charset=utf-8'});
-        response.end(JSON.stringify(data));
+        return {
+            code: 200,
+            headers: {'content-type': 'application/json; charset=utf-8'},
+            body: JSON.stringify(data),
+        };
     }
-    // const inventoryId = Number(requestUrl.pathname.substring(11, requestUrl.pathname.length));
-    // if (startsWith(requestUrl.pathname, '/inventory/') && Number.isInteger(inventoryId) && request.method === 'PUT') {
-    //     const result = await putInventory({id: inventoryId, ...requestUrl.query});
-    //     response.writeHead(200, {'content-type': 'application/json; charset=utf-8'});
-    //     response.end(JSON.stringify(result));
-    // }
 
     if (startsWith(requestUrl.pathname, '/inventory') && request.method === 'PUT') {
-        var dataJSON = [];
-        var data = '';
-        request.on('data', function (chunk) {
-            data += chunk;
-        });
-
-        request.on('end', async function () {
-            dataJSON = JSON.parse(data);
-            console.log(dataJSON);
-            const result = await putInventory(dataJSON);
-            response.writeHead(200, {'content-type': 'application/json; charset=utf-8'});
-            response.end(JSON.stringify(result));
-            console.log(JSON.stringify(result));
-        });
-        return;
+        const dataJSON = await getRequestData(request);
+        const result = await putInventory(dataJSON);
+        return {
+            code: 200,
+            headers: {'content-type': 'application/json; charset=utf-8'},
+            body: JSON.stringify(result),
+        };
     }
     if (requestUrl.pathname === '/inventory' && request.method === 'POST') {
-        var dataJSON = [];
-        var data = '';
-        request.on('data', function (chunk) {
-            data += chunk;
-        });
-
-        request.on('end', async function () {
-            dataJSON = JSON.parse(data);
-            console.log(dataJSON);
-            const result = await postInventory(dataJSON);
-            response.writeHead(200, {'content-type': 'application/json; charset=utf-8'});
-            response.end(JSON.stringify(result));
-            console.log(JSON.stringify(result));
-        });
-        return;
+        const dataJSON = await getRequestData(request);
+        const result = await postInventory(dataJSON);
+        return {
+            code: 200,
+            headers: {'content-type': 'application/json; charset=utf-8'},
+            body: JSON.stringify(result),
+        };
     }
     if (requestUrl.pathname === '/inventory' && request.method === 'DELETE') {
-        var dataJSON = [];
-        var data = '';
-        request.on('data', function (chunk) {
-            data += chunk;
-        });
-
-        request.on('end', async function () {
-          console.log(JSON.stringify(data));
-            dataJSON = JSON.parse(data);
-            console.log(dataJSON);
-            const result = await deleteInventory(dataJSON);
-            response.writeHead(200, {'content-type': 'application/json; charset=utf-8'});
-            response.end(JSON.stringify(result));
-            console.log(JSON.stringify(result));
-        });
-        return;
+        const dataJSON = await getRequestData(request);
+        const result = await deleteInventory(dataJSON);
+        return {
+            code: 200,
+            headers: {'content-type': 'application/json; charset=utf-8'},
+            body: JSON.stringify(result),
+        };
     }
 
-    response.writeHead(404, {});
-    response.end('Endpoint not found', 'utf-8');
+    throw {
+        code: 404,
+        message: 'Endpoint not found',
+    };
+}
+
+const server = http.createServer(async (request, response) => {
+    try {
+        const result = await handleRequest(request, response);
+        if (result) {
+            response.writeHead(result.code, result.message, result.headers)
+                .end(result.body, 'utf-8');
+        }
+    } catch (err) {
+        const statusCode = err.code < 600 ? err.code : 500;
+        const message = typeof err.message === 'string' ? err.message : 'Internal server error'
+        response.writeHead(statusCode, message).end();
+    }
 });
 
 

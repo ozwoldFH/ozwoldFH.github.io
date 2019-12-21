@@ -59,7 +59,19 @@ td, th {
     float: left;
 }
 
-#printButton{
+#printButton {
+    background-color: darkgrey;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    float: left;
+}
+
+#importDataButton {
     background-color: dimgrey;
     border: none;
     color: white;
@@ -71,7 +83,7 @@ td, th {
     float: left;
 }
 
-#searchInput{
+#searchInput {
     width: 22%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -79,16 +91,16 @@ td, th {
     float: right;
 }
 
-input:required {
+#searchInput:required {
     width: 20%;
     height: 20px;
-    border:0.5px solid tomato;
+    border: 0.5px solid tomato;
 }
 
-input:valid {
+#searchInput:valid {
     width: 20%;
     height: 20px;
-    border:0.5px solid grey;
+    border: 0.5px solid grey;
 }
 
 .col-20 {
@@ -161,7 +173,54 @@ input:valid {
     float: right;
 }
 
-#csvExportButton{
+.table-btn {
+    width: 100%;
+}
+
+.noscroll {
+    overflow: hidden;
+}
+
+#import-overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: scroll;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2;
+}
+
+#closeImportOverlayButton {
+    position: absolute;
+    right: 0px;
+}
+
+.import-input-container {
+    color: white;
+    left: 15%;
+    position: absolute;
+    width: 70%;
+}
+
+.import-overlay-text {
+    color: white;
+}
+
+.custom-file-input:hover {
+    cursor: pointer;
+}
+
+#importRawCsvText {
+    width: 100%;
+    height: 200px;
+}
+
+#csvExportButton {
     background-color: blue;
     border: none;
     color: white;
