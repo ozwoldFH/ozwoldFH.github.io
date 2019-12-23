@@ -137,13 +137,6 @@ function goToTable() {
     }
 
 
-
-
 }
 
 
-
-
-
-
-// TODO comfirm() bzw. window.alert()
