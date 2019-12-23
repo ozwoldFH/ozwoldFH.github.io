@@ -91,11 +91,12 @@ async function addData() {
         obj[item.name] = item.value;
     }
 
+    var objArray = new Array(obj);
 
     if (editMode == "true") {
         await putData(obj);
     } else {
-        await postData(obj);
+        await postData(objArray);
     }
 
 }
@@ -113,6 +114,9 @@ async function postData(body) {
     try {
         await request("./inventory", "POST", body);
         showMessageModal("Erfolg!", "Daten wurden erfolgreich gespeichert!");
+
+        // TODO go -> bitte showMessageModal so ändern, dass je nach Button klick weitergeht oder nicht
+        // document.location.href = "./index.html"
     } catch (err) {
         if (err.message.includes("duplicate key value violates unique constraint")) {
             showMessageModal("Fehler!", "Leider existiert der Name bereits. Wählen Sie einen anderen Namen aus.");
