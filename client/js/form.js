@@ -4,6 +4,18 @@ let editMode = "false";
 
 
 window.addEventListener("load", function() {
+    // validation code. code by https://getbootstrap.com/docs/4.2/components/forms/?
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and check
+    Array.prototype.filter.call(forms, function(form) {
+        if (form.checkValidity() === false) {
+            form.classList.add('was-validated');
+        }
+    });
+
+
+
   today = new Date().toISOString().slice(0, 10);
   document.getElementById('mindate').setAttribute('min', today);
 
@@ -44,11 +56,8 @@ function showMessageModal(title, message) {
 }
 
 async function addData() {
-    // validation code. code by https://getbootstrap.com/docs/4.2/components/forms/?
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
     var forms = document.getElementsByClassName('needs-validation');
     var validation = true;
-    // Loop over them and check
     Array.prototype.filter.call(forms, function(form) {
         if (form.checkValidity() === false) {
             form.classList.add('was-validated');
