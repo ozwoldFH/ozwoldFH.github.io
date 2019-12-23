@@ -19,6 +19,7 @@ async function changeFormToEditMode() {
     const jsonDATA = JSON.parse(localStorage.getItem("row"));
     localStorage.setItem("editMode", "false");
     document.getElementById("title").innerHTML = "Daten ändern"
+    document.getElementById("h1").innerHTML = "Daten ändern"
 
     for (var key in jsonDATA) {
         var name = key;
@@ -36,8 +37,30 @@ async function changeFormToEditMode() {
     }
 }
 
+function showMessageModal(title, message) {
+    document.getElementById("modal-title").innerHTML = title;
+    document.getElementById("modal-message").innerHTML = message;
+    $("#modalCenter").modal();
+}
 
 async function addData() {
+    // validation code. code by https://getbootstrap.com/docs/4.2/components/forms/?
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    var validation = true;
+    // Loop over them and check
+    Array.prototype.filter.call(forms, function(form) {
+        if (form.checkValidity() === false) {
+            form.classList.add('was-validated');
+            validation = false;
+        }
+    });
+
+    if (validation == false) {
+        return;
+    }
+
+    
     var elements = document.getElementById("myForm").elements;
     var obj = {};
     if (editMode == "true") {
@@ -53,62 +76,18 @@ async function addData() {
             validateDate(item.value);
         }
         if (item.name === "nextServiceDateTime" && item.value < today && item.value !== "") {
-            confirm("Datum für das nächste Service liegt in der Vergangenheit.")
+            showMessageModal("Fehler bei der Eingabe", "Datum für das nächste Service liegt in der Vergangenheit.");
             return
-        } else {
-            switch (item.name) {
-                case "name":
-                    if (item.value === "") {
-                        missingInput += " - Name\n";
-                    }
-                    break;
-                case "weight":
-                    if (item.value === "") {
-                        missingInput += " - Gewicht in kg\n";
-                    }
-                    break;
-                case "description":
-                    if (item.value === "") {
-                        missingInput += " - Beschreibung\n";
-                    }
-                    break;
-                case "location":
-                    if (item.value === "") {
-                        missingInput += " - Standort\n";
-                    }
-                    break;
-                case "room":
-                    if (item.value === "") {
-                        missingInput += " - Raum\n";
-                    }
-                    break;
-                case "type":
-                    if (item.value === "") {
-                        missingInput += " - Typ\n";
-                    }
-                    break;
-                case "addedDateTime":
-                    if (item.value === "") {
-                        missingInput += " - Hinzugefügt am\n";
-                    }
-                    break;
-                default:
-            }
-            obj[item.name] = item.value;
-        }
+        } 
+        obj[item.name] = item.value;
     }
 
-    if (missingInput !== "") {
-        confirm("Bitte fügen Sie folgende Daten hinzu: " + "\n" + missingInput.slice(0, missingInput.length - 1))
-        return
-    }
 
     if (editMode == "true") {
         await putData(obj);
     } else {
         await postData(obj);
     }
-
 
 }
 
@@ -117,19 +96,19 @@ function validateDate(date) {
   let pattern = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
 
   if (!pattern.test(date)) {
-    confirm('Invalides Datum: Datum sollte gültig und im Brower Safari im YYYY-MM-DD Format sein!')
+    showMessageModal("Fehler bei der Eingabe", "Invalides Datum: Datum sollte gültig und im Brower Safari im YYYY-MM-DD Format sein!");
   }
 }
 
 async function postData(body) {
     try {
         await request("./inventory", "POST", body);
-        window.alert("Daten wurden erfolgreich gespeichert!");
+        showMessageModal("Erfolg!", "Daten wurden erfolgreich gespeichert!");
     } catch (err) {
         if (err.message.includes("duplicate key value violates unique constraint")) {
-            window.alert("Fehler! Leider existiert der Name bereits. Wählen Sie einen anderen Namen aus.");
+            showMessageModal("Fehler!", "Leider existiert der Name bereits. Wählen Sie einen anderen Namen aus.");
         } else {
-            window.alert("Daten konnten nicht gespeichert werden");
+            showMessageModal("Fehler!", "Daten konnten nicht gespeichert werden.");
         }
     }
 }
@@ -137,12 +116,12 @@ async function postData(body) {
 async function putData(body) {
     try {
         await request("./inventory", "PUT", body);
-        window.alert("Daten wurden erfolgreich geändert!");
+        showMessageModal("Erfolg!", "Daten wurden erfolgreich gespeichert!");
     } catch (err) {
         if (err.message.includes("duplicate key value violates unique constraint")) {
-            window.alert("Fehler! Leider existiert der Name bereits. Wählen Sie einen anderen Namen aus.");
+            showMessageModal("Fehler!", "Leider existiert der Name bereits. Wählen Sie einen anderen Namen aus.");
         } else {
-            window.alert("Daten konnten nicht gespeichert werden");
+            showMessageModal("Fehler!", "Daten konnten nicht gespeichert werden.");
         }
     }
 }
@@ -151,13 +130,20 @@ function goToTable() {
     if (editMode === "true") {
         const answer = confirm("Möchten Sie die Seite wirklich verlassen? \n Alle ungespeicherten Daten gehen verloren.")
         if (answer) {
-            document.myForm.reset();
             document.location.href = "./index.html"
         }
     } else {
-        document.myForm.reset();
         document.location.href = "./index.html"
     }
 
 
+
+
 }
+
+
+
+
+
+
+// TODO comfirm() bzw. window.alert()

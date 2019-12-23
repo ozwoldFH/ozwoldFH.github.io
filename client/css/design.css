@@ -103,20 +103,6 @@ td, th {
     border: 0.5px solid grey;
 }
 
-.col-20 {
-    float: left;
-    width: 20%;
-    margin-top: 10px;
-    font-size: 14px;
-    font-family: "Helvetica";
-}
-
-.col-80 {
-    float: left;
-    width: 80%;
-    margin-top: 10px;
-}
-
 #json-output {
     margin-top: 20px;;
 }

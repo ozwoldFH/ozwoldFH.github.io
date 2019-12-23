@@ -1,115 +1,126 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>F
-  <title>Daten hinzufügen</title>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title id="title">Daten hinzufügen</title>
+
+
+  <!-- bitte das hier noch ändern!!! -->
   <script src="js/helper.js"></script>
-  <script src="js/form.js"></script>
-  <link rel="stylesheet" type="text/css" href="css/design.css">
+  <script src="js/form.js"></script>    
+  
+  <script src="vendors/js/jquery-3-2-1.js"></script>
+  <script src="vendors/js/bootstrap.js"></script>
+  <link href="vendors/css/bootstrap.css" rel="stylesheet" />
+
+
   <meta charset="utf-8"/>
 </head>
 <body>
 
-<h1 id="title">Daten hinzufügen</h1>
+  <div class="container">
+  <h1 id="h1" class="display-3">Daten hinzufügen</h1>
 
-<form id="myForm" action="#" method="POST" name="myForm">
-  <div class="row">
-    <div class="col-20">
-      Name:*
+  <form id="myForm" method="POST" name="myForm" class="needs-validation" novalidate>
+    <div class="form-group">
+      <label for="name">Gegenstandsname</label>
+      <input type="text" class="form-control" id="name" name="name" maxlength="32" placeholder="PC_0001" required>
+      <div class="invalid-feedback">
+        Bitte einen Namen angeben.
+      </div>
     </div>
-    <div class="col-80">
-      <input type="text" name="name" maxlength="256" required>
+    <div class="form-group">
+      <label for="weight">Gewicht in kg</label>
+      <input type="number" class="form-control" id="weight" name="weight" placeholder="10" required>
+      <div class="invalid-feedback">
+        Bitte das Gewicht angeben.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description">Beschreibung</label>
+      <input type="text" class="form-control" id="description" name="description" maxlength="256" placeholder="Ein standard Computer" required>
+      <div class="invalid-feedback">
+        Bitte die Beschreibung angeben.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="location">Standort</label>
+      <input type="text" class="form-control" id="location" name="location" maxlength="32" placeholder="FH Kapfenberg" required>
+      <div class="invalid-feedback">
+        Bitte den Standort angeben.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="room">Raum</label>
+      <input type="text" class="form-control" id="room" name="room" maxlength="32" placeholder="Raum101" required>
+      <div class="invalid-feedback">
+        Bitte den Raum angeben.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="type">Typ</label>
+      <input type="text" class="form-control" id="type" name="type" maxlength="32" placeholder="PC" required>
+      <div class="invalid-feedback">
+        Bitte den Typ angeben.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="addedDateTime">Hinzugefügt am</label>
+      <input type="date" class="form-control" id="addedDateTime" name="addedDateTime" placeholder="Datum !!!!!!!!!" required>
+      <div class="invalid-feedback">
+        Bitte das Datum angeben.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="addedBy">Hinzugefügt von</label>
+      <input type="text" class="form-control" id="addedBy" name="addedBy" maxlength="32" placeholder="admin_go">
+    </div>
+    <div class="form-group">
+      <label for="lastServiceDateTime">Letztes Service</label>
+      <input type="date" class="form-control" id="lastServiceDateTime" name="lastServiceDateTime" placeholder="Datum !!!!!!!!!">
+    </div>
+    <div class="form-group">
+      <label for="lastServiceBy">Letztes Service von</label>
+      <input type="text" class="form-control" id="lastServiceBy" name="lastServiceBy" maxlength="32" placeholder="Nobert">
+    </div>
+    <div class="form-group">
+      <label for="mindate">Nächstes Service</label>
+      <input type="date" class="form-control" id="mindate" name="nextServiceDateTime" placeholder="Datum !!!!!!!!!">
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary btn-lg btn-block" type="button" onclick="addData()">Submit form</button>
+    </div>    
+  </form>
+
+  <button class="btn btn-secondary btn-lg btn-block" onclick="goToTable()">Zurück zur Tabelle</button>
+
+
+
+  
+</div>
+
+  <!-- Modal message information -->
+  <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal-title">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p id="modal-message">Modal body text goes here.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-20">
-      Gewicht in kg:*
-    </div>
-    <div class="col-80">
-      <input type="number" step="0.01" name="weight" min="0" oninput="this.value = Math.abs(this.value)" required>
-    </div>
-  </div>
- <div class="row">
-    <div class="col-20">
-      Beschreibung:*
-    </div>
-    <div class="col-80">
-      <input type="text" name="description" maxlength="256" required>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-20">
-      Standort:*
-    </div>
-    <div class="col-80">
-      <input type="text" name="location" maxlength="256" required>
-    </div>
-  </div>
-    <div class="row">
-      <div class="col-20">
-        Raum:*
-      </div>
-      <div class="col-80">
-        <input type="text" name="room" maxlength="256" required>
-      </div>
-    </div> 
-    <div class="row">
-      <div class="col-20">
-        Typ:*
-      </div>
-      <div class="col-80">
-        <input type="text" name="type" maxlength="256" required>
-      </div>
-    </div>  
-    <div class="row">
-      <div class="col-20">
-       Hinzugefügt am:*
-      </div>
-      <div class="col-80">
-        <input type="date" name="addedDateTime" required>
-      </div>
-    </div>  
-    <div class="row">
-      <div class="col-20">
-        Hinzugefügt von:
-      </div>
-      <div class="col-80">
-        <input type="text" name="addedBy" maxlength="256">
-      </div>
-    </div>  
-    <div class="row">
-      <div class="col-20">
-        Letztes Service:
-      </div>
-      <div class="col-80">
-        <input type="date" name="lastServiceDateTime">
-      </div>
-    </div>  
-    <div class="row">
-      <div class="col-20">
-        Letztes Service von:
-      </div>
-      <div class="col-80">
-        <input type="text" name="lastServiceBy" maxlength="256">
-      </div>
-    </div> 
-  <div class="row">
-    <div class="col-20">
-      Nächstes Service:
-    </div>
-    <div class="col-80">
-      <input type="date" id="mindate" min="2019-01-01" name="nextServiceDateTime">
-    </div>
-  </div>
-    <div class="row">
-      <div class="col-100">
-        <p id="json-output"></p>
-      </div>
-    </div>
-    </form>
-<p>* Pflichtfelder</p>
-<button id="back-button" onclick="goToTable()">Zurück zur Tabelle</button>
-<input id="submitDataButton" type="button" value="Speichern" onclick="addData()">
+
+
 
 
 <script>
