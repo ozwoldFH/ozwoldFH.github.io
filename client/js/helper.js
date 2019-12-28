@@ -25,3 +25,7 @@ function request(url, method, body, contentType = "application/json;charset=UTF-
         }
     }));
 }
+
+function sleep(millis) {
+    return new Promise(resolve => setTimeout(resolve, millis));
+}

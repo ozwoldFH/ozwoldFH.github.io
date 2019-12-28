@@ -1,6 +1,9 @@
 "use strict";
 
+const searchPropertyNames = ['name', 'weight', 'description', 'location', 'room',
+    'type', 'addedAt', 'addedBy', 'lastServiceAt', 'lastServiceBy', 'nextServiceAt'];
 const inventory = {};
+let searchCount = 0;
 let dataTable;
 let tableHeaders;
 let tableRows;
@@ -34,23 +37,13 @@ $(document).ready(function () {
         });
         $displayEl.empty().append($editBtn).append($deleteBtn);
     };
-    const dateRenderer = function (value, record, $cell, $displayEl) {
-        const formattedDate = convertDateToLocalFormat(value);
-        $displayEl.empty().append($(`<div>${formattedDate}</div>`));
-    };
     const dataFilter = function (value, searchStr) {
         if (searchStr.length < 4) {
             return true;
         }
         const lowerCaseStr = searchStr.toLowerCase();
         const row = inventory[value];
-        const values = Object.values(row);
-        for (let i = 1; i < values.length; i++) {
-            if (String(values[i]).toLowerCase().includes(lowerCaseStr)) {
-                return true;
-            }
-        }
-        return false;
+        return searchPropertyNames.some(propName => String(row[propName]).toLowerCase().includes(lowerCaseStr));
     };
 
     dataTable = $("#grid").grid({
@@ -66,31 +59,32 @@ $(document).ready(function () {
             {field: 'room', title: 'Raum', minWidth: 120, priority: 4, sortable: true},
             {field: 'type', title: 'Typ', minWidth: 100, priority: 5, sortable: true},
             {
-                field: 'addedDateTime',
+                field: 'addedAtGijgoFormat',
                 title: 'Hinzugefügt am',
                 minWidth: 120,
                 priority: 6,
                 type: 'date',
-                renderer: dateRenderer,
+                format: 'dd.mm.yyyy',
                 sortable: true
             },
             {field: 'addedBy', title: 'Hinzugefügt von', minWidth: 120, priority: 7, sortable: true},
             {
-                field: 'lastServiceDateTime',
+                field: 'lastServiceAtGijgoFormat',
                 title: 'Letzter Service',
                 minWidth: 120,
                 priority: 7,
-                renderer: dateRenderer,
+                type: 'date',
+                format: 'dd.mm.yyyy',
                 sortable: true
             },
             {field: 'lastServiceBy', title: 'Letzter Service von', minWidth: 120, priority: 9, sortable: true},
             {
-                field: 'nextServiceDateTime',
+                field: 'nextServiceAtGijgoFormat',
                 title: 'Nächstes Service',
                 minWidth: 120,
                 priority: 10,
                 type: 'date',
-                renderer: dateRenderer,
+                format: 'dd.mm.yyyy',
                 sortable: true
             },
             {field: 'id', title: '', width: 120, renderer: editRenderer, filter: dataFilter},
@@ -107,6 +101,27 @@ $(document).ready(function () {
             const dataJSON = await request("./inventory", "GET");
             dataTable.clear();
             dataJSON.forEach(item => {
+                if (item.addedDateTime) {
+                    const date = new Date(item.addedDateTime);
+                    item.addedAt = convertDateToLocalFormat(date);
+                    item.addedAtGijgoFormat = `\/Date(${date.getTime()}\/`;
+                } else {
+                    item.addedAt = '';
+                }
+                if (item.lastServiceDateTime) {
+                    const date = new Date(item.lastServiceDateTime);
+                    item.lastServiceAt = convertDateToLocalFormat(date);
+                    item.lastServiceAtGijgoFormat = `\/Date(${date.getTime()}\/`;
+                } else {
+                    item.addedAt = '';
+                }
+                if (item.nextServiceDateTime) {
+                    const date = new Date(item.nextServiceDateTime);
+                    item.nextServiceAt = convertDateToLocalFormat(date);
+                    item.nextServiceAtGijgoFormat = `\/Date(${date.getTime()}\/`;
+                } else {
+                    item.nextServiceAt = '';
+                }
                 inventory[item.id] = {...item};
                 dataTable.addRow(item);
             });
@@ -124,11 +139,11 @@ $(document).ready(function () {
     checkColumnsCount();
 });
 
-function convertDateToLocalFormat(text) {
-    if (!text) {
+function convertDateToLocalFormat(textOrDate) {
+    if (!textOrDate) {
         return '';
     }
-    const date = new Date(text);
+    const date = typeof textOrDate === 'string' ? new Date(textOrDate) : textOrDate;
     const options = {year: 'numeric', month: '2-digit', day: '2-digit'};
     return date.toLocaleDateString('de-AT', options);
 }
@@ -153,7 +168,13 @@ function checkColumnsCount() {
     }
 }
 
-function onSearch() {
+async function onSearch() {
+    const currentSearchCount = ++searchCount;
+    await sleep(200);
+    if (currentSearchCount !== searchCount) {
+        return;
+    }
+
     let currentSearchKey = $('#searchBox').val();
     if (currentSearchKey.length < 4) {
         currentSearchKey = '';
