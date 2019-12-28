@@ -2,6 +2,9 @@ const dbQuery = require('../helper/db');
 
 async function post(newItems) {
     try {
+        if (!newItems.length) {
+            throw {code: 400, message: 'body must be a array'};
+        }
         let valueIndex = 1;
         const sqlValues = newItems.map(newItem => '(' + Array(11).fill(0).map(v => `$${valueIndex++}`).join(',') + ')').join(',');
         const sql = {
@@ -45,7 +48,7 @@ async function post(newItems) {
         return result;
     } catch (err) {
         throw {
-            code: Number(err.code) || 500,
+            code: err.code,
             message: err.message,
         }
     }

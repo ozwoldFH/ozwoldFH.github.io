@@ -296,7 +296,7 @@ function updateImportRawStatus() {
 
 function parseCsvAndShowValidationInfos(text, infoElementId) {
     try {
-        const rows = validateImportCsv(text);
+        const rows = tryValidateImportCSV(text);
 
         if (rows.length === 0) {
             $(`#${infoElementId}`).text('Keine gültigen Daten enthalten')
@@ -318,7 +318,7 @@ function parseCsvAndShowValidationInfos(text, infoElementId) {
             if (!row.invalidHeaders.length) {
                 return '';
             }
-            const headers = row.invalidHeaders.map(header => `"${header}"`).join(',');
+            const headers = row.invalidHeaders.map(header => `"${header.name}" (${header.reason})`).join(',');
             return `<li>Zeile ${index + 1}: ${headers}</li>`;
         }).filter(Boolean).join('');
         $(`#${infoElementId}`).html('<label>Invalide Zeilen:</label><br><ul>' + list + '</ul>')
@@ -337,13 +337,36 @@ function parseCsvAndShowValidationInfos(text, infoElementId) {
     }
 }
 
-function validateImportCsv(text) {
+function tryValidateImportCSV(text) {
+    const separators = [';', '\t', ',', '|', '-', '_', ' '];
+    const separatorRows = [];
+    for (let i = 0; i < separators.length; i++) {
+        const rows = validateImportCsv(text, separators[i]);
+        separatorRows.push(rows);
+        if (rows.length && rows.every(row => row.invalidHeaders.length === 0)) {
+            return rows;
+        }
+    }
+
+    let minErrorCount = Number.MAX_SAFE_INTEGER;
+    let minErrorRows = null;
+    for (let i = 0; i < separatorRows.length; i++) {
+        const errorCount = separatorRows[i].reduce((pre, cur) => pre + cur.invalidHeaders.length, 0);
+        if (errorCount < minErrorCount) {
+            minErrorCount = errorCount;
+            minErrorRows = separatorRows[i];
+        }
+    }
+    return minErrorRows;
+}
+
+function validateImportCsv(text, separator = ';') {
     const lines = text.split('\n').map(line => line.trim('\r'));
     let headers = null;
     let rowIndex = 0;
 
     try {
-        headers = splitValues(lines[0]);
+        headers = splitValues(lines[0], separator);
     } catch (err) {
         throw `Syntaxfehler in der Kopfzeile. Wert: ${err.valueIndex}, Zeichen ${err.relativeIndex}`;
     }
@@ -351,7 +374,7 @@ function validateImportCsv(text) {
     try {
         const rows = [];
         for (rowIndex = 1; rowIndex < lines.length; rowIndex++) {
-            const values = splitValues(lines[rowIndex]);
+            const values = splitValues(lines[rowIndex], separator);
             if (values) {
                 rows.push(getInventoryItemAndInvalidHeaders(headers, values));
             }
@@ -417,9 +440,24 @@ function getInventoryItemAndInvalidHeaders(headers, values) {
         const propName = getInventoryPropertyName(header);
         if (propName) {
             item[propName] = convertValue(propName, values[index]);
-            if (!isValueValid(propName, values[index])) {
-                invalidHeaders.push(header);
+            const invalid = isValueInvalid(propName, values[index]);
+            if (invalid) {
+                invalidHeaders.push({name: header, reason: invalid});
             }
+        }
+    });
+    const requiredHeaders = {
+        name: 'Name',
+        weight: 'Gewicht',
+        description: 'Beschreibung',
+        location: 'Standort',
+        type: 'Typ',
+        addedDateTime: 'Hinzugefügt am',
+        addedBy: 'Hinzugefügt von'
+    };
+    Object.keys(requiredHeaders).forEach(key => {
+        if (!item[key]) {
+            invalidHeaders.push({name: requiredHeaders[key], reason: 'fehlt'});
         }
     });
     return {item, invalidHeaders};
@@ -453,7 +491,7 @@ function getInventoryPropertyName(header) {
     }
 }
 
-function isValueValid(propName, value) {
+function isValueInvalid(propName, value) {
     switch (propName) {
         case 'name':
         case 'description':
@@ -461,17 +499,29 @@ function isValueValid(propName, value) {
         case 'room':
         case 'type':
         case 'addedBy':
-            return value;
+            return !value;
         case 'weight':
-            return !Number.isNaN(parseFloat(value));
+            return Number.isNaN(parseFloat(value)) ? 'Format' : false;
         case 'addedDateTime':
-            return validateDate(value);
+            return !validateDate(value) ? 'Format' : false;
         case 'lastServiceDateTime':
-            return !value || validateDate(value);
+            const lastDate = !value || validateDate(value);
+            if (!lastDate) {
+                return 'Format';
+            } else if (lastDate >= new Date()) {
+                return 'Zukunft';
+            }
+            return false;
         case 'nextServiceDateTime':
-            return !value || validateDate(value, new Date());
+            const nextDate = !value || validateDate(value);
+            if (!nextDate) {
+                return 'Format';
+            } else if (nextDate <= new Date()) {
+                return 'Vergangenheit';
+            }
+            return false;
         default:
-            return true;
+            return false;
     }
 }
 
@@ -503,8 +553,8 @@ function validateDate(text, minDate) {
     }
 
     const nos = parts.map(part => parseInt(part));
-    const date = new Date(nos[2], nos[1], nos[0]);
-    return date >= minDate;
+    const date = new Date(`${nos[2]}-${nos[1]}-${nos[0]}`);
+    return date >= minDate ? date : false;
 }
 
 function isValidInt(text) {

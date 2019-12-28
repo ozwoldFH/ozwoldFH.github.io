@@ -30,7 +30,7 @@ async function put({id, name, weight, description, location, room, type, addedDa
 
     } catch (err) {
         throw {
-            code: Number(err.code) || 500,
+            code: err.code,
             message: err.message,
         }
     }

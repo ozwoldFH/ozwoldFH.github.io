@@ -2,7 +2,6 @@
 let today;
 let editMode = "false";
 
-
 window.addEventListener("load", function() {
     // validation code. code by https://getbootstrap.com/docs/4.2/components/forms/?
     // Fetch all the forms we want to apply custom Bootstrap validation styles to

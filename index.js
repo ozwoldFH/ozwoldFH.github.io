@@ -33,7 +33,6 @@ async function handleRequest(request, response) {
             body: JSON.stringify(data),
         };
     }
-
     if (startsWith(requestUrl.pathname, '/inventory') && request.method === 'PUT') {
         const dataJSON = await getRequestData(request);
         const result = await putInventory(dataJSON);
@@ -55,10 +54,41 @@ async function handleRequest(request, response) {
     if (requestUrl.pathname === '/inventory' && request.method === 'DELETE') {
         const dataJSON = await getRequestData(request);
         const result = await deleteInventory(dataJSON);
+
+    }
+    if (requestUrl.pathname === '/edit' && request.method === 'GET') {
         return {
             code: 200,
-            headers: {'content-type': 'application/json; charset=utf-8'},
-            body: JSON.stringify(result),
+            headers: {'content-type': 'text/html'},
+            body: `
+                <!DOCTYPE html>
+                <html lang="de">
+                <head>
+                  <meta charset="utf-8"/>
+                  <link rel="alternate" type="text/html" href="form.html">
+                </head>
+            `,
+        };
+    }
+    if (requestUrl.pathname === '/formdata' && request.method === 'GET') {
+        //await sleep(5000);
+        return {
+            code: 200,
+            headers: {'content-type': 'text/javascript'},
+            body: `let itemData = {
+                    "id": 0,
+                    "name": "PC_0001",
+                    "weightKg": 5,
+                    "description": "standard Computer",
+                    "location": "Kapfenberg",
+                    "room": "Raum101",
+                    "type": "PC",
+                    "addedDateTime": "01.01.2000",
+                    "addedBy": "admin_go",
+                    "lastServiceDateTime": "01.01.2000",
+                    "lastServiceBy": "Nobert",
+                    "nextServiceDateTime": "05.11.2020"
+                  }`,
         };
     }
 
@@ -87,3 +117,9 @@ const port = process.env.PORT || 80;
 server.listen(port, () => {
     console.log('Server and Notes Application is listening to http://localhost:' + port);
 },);
+
+function sleep(millis) {
+    return new Promise(resolve => {
+        setTimeout(resolve, millis);
+    })
+}
