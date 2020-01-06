@@ -54,7 +54,11 @@ async function handleRequest(request, response) {
     if (requestUrl.pathname === '/inventory' && request.method === 'DELETE') {
         const dataJSON = await getRequestData(request);
         const result = await deleteInventory(dataJSON);
-
+        return {
+            code: 200,
+            headers: {'content-type': 'application/json; charset=utf-8'},
+            body: JSON.stringify(result),
+        };
     }
     if (requestUrl.pathname === '/edit' && request.method === 'GET') {
         return {

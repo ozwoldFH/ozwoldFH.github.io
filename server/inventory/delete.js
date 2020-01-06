@@ -6,7 +6,6 @@ async function deleteRow({id}) {
             text: `DELETE FROM T_INVENTORY WHERE id = $1;`,
             values: [id]
         };
-
         const result = await dbQuery(sql);
         return result;
     } catch (err) {

@@ -42,7 +42,9 @@ async function changeFormToEditMode() {
                     document.getElementsByName(key)[0].value = date.toISOString().split('T')[0];
                 }
             } else {
-                document.getElementsByName(key)[0].value = value;
+                if (!name.toLowerCase().endsWith("format") && !name.toLowerCase().endsWith("at")) {
+                    document.getElementsByName(key)[0].value = value;
+                }
             }
         }
     }
@@ -51,7 +53,19 @@ async function changeFormToEditMode() {
 function showMessageModal(title, message) {
     document.getElementById("modal-title").innerHTML = title;
     document.getElementById("modal-message").innerHTML = message;
-    $("#modalCenter").modal();
+    $("#messageModal").modal();
+}
+
+function showMessageModalAndGoBackToIndex(title, message) {
+    document.getElementById("modal-title-index").innerHTML = title;
+    document.getElementById("modal-message-index").innerHTML = message;
+    $("#messageModalAndGoBackToIndex").modal();
+}
+
+function showMessageModalForEditMode(title, message) {
+    document.getElementById("modal-title-edit").innerHTML = title;
+    document.getElementById("modal-message-edit").innerHTML = message;
+    $("#messageModalForEditMode").modal();
 }
 
 async function addData() {
@@ -112,7 +126,7 @@ function validateDate(date) {
 async function postData(body) {
     try {
         await request("./inventory", "POST", body);
-        showMessageModal("Erfolg!", "Daten wurden erfolgreich gespeichert!");
+        showMessageModalAndGoBackToIndex("Erfolg!", "Daten wurden erfolgreich gespeichert!");
 
         // TODO go -> bitte showMessageModal so ändern, dass je nach Button klick weitergeht oder nicht
         // document.location.href = "./index.html"
@@ -128,7 +142,7 @@ async function postData(body) {
 async function putData(body) {
     try {
         await request("./inventory", "PUT", body);
-        showMessageModal("Erfolg!", "Daten wurden erfolgreich gespeichert!");
+        showMessageModalAndGoBackToIndex("Erfolg!", "Daten wurden erfolgreich gespeichert!");
     } catch (err) {
         if (err.message.includes("duplicate key value violates unique constraint")) {
             showMessageModal("Fehler!", "Leider existiert der Name bereits. Wählen Sie einen anderen Namen aus.");
@@ -138,17 +152,13 @@ async function putData(body) {
     }
 }
 
-function goToTable() {
+function goToTable(force) {
     if (editMode === "true") {
-        const answer = confirm("Möchten Sie die Seite wirklich verlassen? \n Alle ungespeicherten Daten gehen verloren.")
-        if (answer) {
+        showMessageModalForEditMode("Achtung!", "Möchten Sie die Seite wirklich verlassen? \n Alle ungespeicherten Daten gehen verloren.");
+        if(force === true) {
             document.location.href = "./index.html"
         }
     } else {
         document.location.href = "./index.html"
     }
-
-
 }
-
-
