@@ -1,7 +1,7 @@
 const dbQuery = require('../helper/db');
 
 async function get() {
-    const sql = 'SELECT * FROM T_INVENTORY ORDER BY id';
+    const sql = 'SELECT * FROM T_INVENTORY ORDER BY id DESC';
     const result = await dbQuery(sql);
 
     return result.map(item => {
