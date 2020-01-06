@@ -10,6 +10,7 @@ let tableRows;
 let lastSearchKey;
 let importCsvFileData;
 let importRawCsvData;
+let loadFunctionCallbackForModal;
 $(document).ready(function () {
     console.log("=== page ready ===");
 
@@ -24,16 +25,8 @@ $(document).ready(function () {
         const deleteBtnHtml = '<button type="button" class="btn btn-danger btn-sm command-delete table-btn mt-1">L&ouml;schen</button>';
         const $deleteBtn = $(deleteBtnHtml).on('click', async function () {
             const json = {id: inventory[value].id};
-            const userInput = confirm("Wollen Sie den Eintrag " + inventory[value].name + " wirklich löschen?");
-            if (userInput) {
-                try {
-                    await request('./inventory', 'DELETE', json);
-                    window.alert("Eintrag wurde erfolgreich gelöscht!");
-                    await loadData();
-                } catch (err) {
-                    window.alert("Eintrag konnte nicht gelöscht werden!");
-                }
-            }
+            localStorage.setItem("deleteId", JSON.stringify(json));
+            showMessageModalForDeleteConfirm("Achtung!", "Wollen Sie den Eintrag " + inventory[value].name + " wirklich löschen?");
         });
         $displayEl.empty().append($editBtn).append($deleteBtn);
     };
@@ -137,7 +130,40 @@ $(document).ready(function () {
 
     loadData();
     checkColumnsCount();
+    loadFunctionCallbackForModal = loadData;
 });
+
+function showMessageModal(title, message) {
+    document.getElementById("modal-title").innerHTML = title;
+    document.getElementById("modal-message").innerHTML = message;
+    $("#messageModal").modal();
+}
+
+function showMessageModalForLoad(title, message) {
+    document.getElementById("modal-title-load").innerHTML = title;
+    document.getElementById("modal-message-load").innerHTML = message;
+    $("#messageModalForLoad").modal();
+}
+
+function showMessageModalForDeleteConfirm(title, message) {
+    document.getElementById("modal-title-delete-confirm").innerHTML = title;
+    document.getElementById("modal-message-delete-confirm").innerHTML = message;
+    $("#messageModalForDeleteConfirm").modal();
+}
+
+async function confirmDelete() {
+    try {
+        const json = JSON.parse(localStorage.getItem("deleteId"));
+        await request('./inventory', 'DELETE', json);
+        showMessageModalForLoad("Erfolg!", "Eintrag wurde erfolgreich gelöscht!");
+    } catch (err) {
+        showMessageModal("Fehler!", "Eintrag konnte nicht gelöscht werden!");
+    }
+}
+
+async function loadDataForModal() {
+    await loadFunctionCallbackForModal();
+}
 
 function convertDateToLocalFormat(textOrDate) {
     if (!textOrDate) {
