@@ -216,7 +216,8 @@ td, th {
 }
 
 #logo{
-    padding: 20px;
+    width:30%;
+    heigh:30%;
 }
 
 .navbar {
