@@ -14,16 +14,13 @@ async function handleRequest(request, response) {
 
     if (requestUrl.pathname === '' || requestUrl.pathname === '/' ||
         requestUrl.pathname === '/index' || requestUrl.pathname === '/index.html') {
-        sendStaticFiles('./client/index.html', response);
-        return null;
+        return await sendStaticFiles('./client/index.html', response);
     }
     if (requestUrl.pathname === '/form' || requestUrl.pathname === '/form.html') {
-        sendStaticFiles('./client/form.html', response);
-        return null;
+        return await sendStaticFiles('./client/form.html', response);
     }
     if (requestUrl.pathname.includes('.')) {
-        sendStaticFiles('./client' + requestUrl.pathname, response);
-        return null;
+        return await sendStaticFiles('./client' + requestUrl.pathname, response);
     }
     if (requestUrl.pathname === '/inventory' && request.method === 'GET') {
         const data = await getInventory();
@@ -60,41 +57,6 @@ async function handleRequest(request, response) {
             body: JSON.stringify(result),
         };
     }
-    if (requestUrl.pathname === '/edit' && request.method === 'GET') {
-        return {
-            code: 200,
-            headers: {'content-type': 'text/html'},
-            body: `
-                <!DOCTYPE html>
-                <html lang="de">
-                <head>
-                  <meta charset="utf-8"/>
-                  <link rel="alternate" type="text/html" href="form.html">
-                </head>
-            `,
-        };
-    }
-    if (requestUrl.pathname === '/formdata' && request.method === 'GET') {
-        //await sleep(5000);
-        return {
-            code: 200,
-            headers: {'content-type': 'text/javascript'},
-            body: `let itemData = {
-                    "id": 0,
-                    "name": "PC_0001",
-                    "weightKg": 5,
-                    "description": "standard Computer",
-                    "location": "Kapfenberg",
-                    "room": "Raum101",
-                    "type": "PC",
-                    "addedDateTime": "01.01.2000",
-                    "addedBy": "admin_go",
-                    "lastServiceDateTime": "01.01.2000",
-                    "lastServiceBy": "Nobert",
-                    "nextServiceDateTime": "05.11.2020"
-                  }`,
-        };
-    }
 
     throw {
         code: 404,
@@ -121,9 +83,3 @@ const port = process.env.PORT || 80;
 server.listen(port, () => {
     console.log('Server and Notes Application is listening to http://localhost:' + port);
 },);
-
-function sleep(millis) {
-    return new Promise(resolve => {
-        setTimeout(resolve, millis);
-    })
-}

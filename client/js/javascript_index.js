@@ -115,7 +115,7 @@ $(document).ready(function () {
                 } else {
                     item.nextServiceAt = '';
                 }
-                inventory[item.id] = {...item};
+                inventory[item.id] = item;
                 dataTable.addRow(item);
             });
             checkColumnsCount();
