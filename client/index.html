@@ -26,11 +26,11 @@
     <h1 class="display-3">Inventar</h1>
 
 <div class="navbar">
-    <a><button id="addDataButton" type="button" onclick="window.print();return false;">Drucken</button></a>
-    <a><button id="printButton" type="button" onclick="goToForm('./form.html')">Hinzufügen</button></a>
-    <a><button id="csvExportButton" type="button" onclick="downloadCSV()">CSV exportieren</button></a>
-    <a><button id="pdfExportButton" type="button" onclick="downloadPDF()">PDF exportieren</button></a>
-    <a><button id="importDataButton" type="button" onclick="openImportDataOverlay()">Importieren</button></a>
+    <a><button id="addDataButton" class="myButton" type="button" onclick="window.print();return false;">Drucken</button></a>
+    <a><button id="printButton" class="myButton" type="button" onclick="goToForm('./form.html')">Hinzufügen</button></a>
+    <a><button id="csvExportButton" class="myButton" type="button" onclick="downloadCSV()">CSV exportieren</button></a>
+    <a><button id="pdfExportButton" class="myButton" type="button" onclick="downloadPDF()">PDF exportieren</button></a>
+    <a><button id="importDataButton" class="myButton" type="button" onclick="openImportDataOverlay()">Importieren</button></a>
     <div class="search form-group">
         <div class="input-group">
             <input type="text" id="searchBox" class="search-field form-control" placeholder="Suchen"
