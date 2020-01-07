@@ -47,33 +47,6 @@ td, th {
     text-align: left;
 }
 
-#addDataButton{
-    background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-}
-
-#printButton {
-    background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-}
-
-#importDataButton {
-    background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-}
-
 #searchInput {
     width: 22%;
     padding: 12px 20px;
@@ -197,24 +170,6 @@ td, th {
     height: 200px;
 }
 
-#csvExportButton {
-    background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-}
-
-#pdfExportButton{
-    background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-}
-
 #logo{
     width:30%;
     heigh:30%;
@@ -270,4 +225,8 @@ td, th {
     background:linear-gradient(to bottom, #e4685d 5%, #d63c3c 100%);
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e4685d', endColorstr='#d63c3c',GradientType=0);
     background-color:#e4685d;
+}
+
+#searchBox{
+    float: right;
 }
