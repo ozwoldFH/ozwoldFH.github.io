@@ -293,9 +293,55 @@ function downloadCSV() {
     exportCSVFile(headers, formattedItems, fileName);
 }
 
-function downloadPDF() {
-    alert('to be continued...')
-}
+  function downloadPDF(){
+    const headers = [
+        'Name',
+        'Gewicht',
+        'Beschreibung',
+        'Standort',
+        'Typ',
+        'Hinzugefügt am',
+        'Hinzugefügt von',
+        'Letzter Service',
+        'Letzter Service von',
+        'Nächstes Service'
+    ];
+
+    const formattedItems = Object.values(inventory).map((item) => {
+        return [
+            item.name,
+            item.weight,
+            item.description,
+            item.location,
+            item.type,
+            convertDateToLocalFormat(item.addedDateTime),
+            item.addedBy,
+            convertDateToLocalFormat(item.lastServiceDateTime),
+            item.lastServiceBy,
+            convertDateToLocalFormat(item.nextServiceDateTime),
+        ];
+    });
+
+
+      var doc = new jsPDF('l', 'mm', [297,210]);
+      doc.autoTable(headers, formattedItems, { theme: 'striped', cellWidth: 'auto', headerStyles: {fillColor: [228,104,93]}});
+
+    const addFooters = doc => {
+        const pageCount = doc.internal.getNumberOfPages()
+      
+        doc.setFontSize(9)
+        for (var i = 1; i <= pageCount; i++) { 
+          doc.setPage(i);
+          doc.text('Seite ' + i + ' von ' + String(pageCount), 264, 200, {
+            align: 'left'
+          })
+        }
+      }
+
+    addFooters(doc);
+      
+      doc.save('Inventory.pdf')
+  }
 
 function openImportDataOverlay() {
     $('#import-overlay').fadeIn(200);
