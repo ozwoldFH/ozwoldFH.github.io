@@ -3565,6 +3565,7 @@ input[type="button"].btn-block {
 }
 
 .input-group {
+  margin-top: 10px;
   position: relative;
   display: -ms-flexbox;
   display: flex;

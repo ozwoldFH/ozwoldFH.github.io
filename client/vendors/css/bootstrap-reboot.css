@@ -295,6 +295,7 @@ progress {
 }
 
 [type="search"] {
+  margin-top: 10px;
   outline-offset: -2px;
   -webkit-appearance: none;
 }
