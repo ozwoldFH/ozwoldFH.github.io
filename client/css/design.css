@@ -20,17 +20,19 @@ tr{
     margin-left:10px;
     font-size: 14px;
     font-family: "Helvetica";
+    z-index: 1;
 }
 
 tr:nth-child(even) {
     background-color: #f2f2f2;
+    z-index: 0;
 }
 
 th{
     background-color: #d4002d;
     height: 40px;
-      
-    position: sticky;
+    z-index: 3;
+    position: sticky!important;
     top: 0;
 }
 
