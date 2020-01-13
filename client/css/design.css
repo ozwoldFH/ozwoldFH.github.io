@@ -29,6 +29,9 @@ tr:nth-child(even) {
 th{
     background-color: #d4002d;
     height: 40px;
+      
+    position: sticky;
+    top: 0;
 }
 
 table{
