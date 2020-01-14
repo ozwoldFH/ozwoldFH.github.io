@@ -128,7 +128,7 @@ $(document).ready(function () {
 
 const dataFilter = function (value, searchStr) {
     if (searchStr == null) {
-        return false;
+        return true;
     }
 
     if (searchStr.length < 4) {
@@ -347,8 +347,7 @@ function downloadCSV() {
     addFooters(doc);
 
     
-      
-    //doc.save('Inventory.pdf')
+    doc.save('Inventory.pdf')
   }
 
 function openImportDataOverlay() {
