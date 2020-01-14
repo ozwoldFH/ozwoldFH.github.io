@@ -28,6 +28,7 @@ tr:nth-child(even) {
     z-index: 0;
 }
 
+
 th{
     background-color: #d4002d;
     height: 40px;
@@ -35,7 +36,10 @@ th{
     position: sticky!important;
     top: 0;
 }
-
+thead > tr > th > div{
+    color: white;
+    font-size: 12px;
+}
 table{
     margin-top:20px;
     border-spacing: unset;
