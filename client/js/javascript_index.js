@@ -127,6 +127,10 @@ $(document).ready(function () {
 
 
 const dataFilter = function (value, searchStr) {
+    if (searchStr == null) {
+        return false;
+    }
+
     if (searchStr.length < 4) {
         return true;
     }
@@ -341,8 +345,10 @@ function downloadCSV() {
       }
 
     addFooters(doc);
+
+    
       
-      doc.save('Inventory.pdf')
+    //doc.save('Inventory.pdf')
   }
 
 function openImportDataOverlay() {
