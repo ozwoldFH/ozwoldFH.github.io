@@ -30,14 +30,6 @@ $(document).ready(function () {
         });
         $displayEl.empty().append($editBtn).append($deleteBtn);
     };
-    const dataFilter = function (value, searchStr) {
-        if (searchStr.length < 4) {
-            return true;
-        }
-        const lowerCaseStr = searchStr.toLowerCase();
-        const row = inventory[value];
-        return searchPropertyNames.some(propName => String(row[propName]).toLowerCase().includes(lowerCaseStr));
-    };
 
     dataTable = $("#grid").grid({
         responsive: true,
@@ -132,6 +124,16 @@ $(document).ready(function () {
     checkColumnsCount();
     loadFunctionCallbackForModal = loadData;
 });
+
+
+const dataFilter = function (value, searchStr) {
+    if (searchStr.length < 4) {
+        return true;
+    }
+    const lowerCaseStr = searchStr.toLowerCase();
+    const row = inventory[value];
+    return searchPropertyNames.some(propName => String(row[propName]).toLowerCase().includes(lowerCaseStr));
+};
 
 function showMessageModal(title, message) {
     document.getElementById("modal-title").innerHTML = title;
@@ -274,7 +276,7 @@ function downloadCSV() {
         nextServiceDateTime: 'Nächstes Service'
     };
 
-    const formattedItems = Object.values(inventory).map((item) => {
+    const formattedItems = Object.values(inventory).filter(item=>dataFilter(item.id, lastSearchKey)).map((item) => {
         return {
             name: item.name,
             weight: item.weight,
@@ -307,7 +309,7 @@ function downloadCSV() {
         'Nächstes Service'
     ];
 
-    const formattedItems = Object.values(inventory).map((item) => {
+    const formattedItems = Object.values(inventory).filter(item=>dataFilter(item.id, lastSearchKey)).map((item) => {
         return [
             item.name,
             item.weight,
