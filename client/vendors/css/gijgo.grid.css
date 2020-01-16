@@ -128,9 +128,9 @@ table.gj-grid-bootstrap tbody tr td div[data-role="display"] {
     background-color: #fff;
 }
 
-.gj-grid-md td:first-of-type, .gj-grid-md th:first-of-type {
+/* .gj-grid-md td:first-of-type, .gj-grid-md th:first-of-type {
     padding-left: 24px;
-}
+} */
 
 .gj-grid-md th {
     position: relative;
