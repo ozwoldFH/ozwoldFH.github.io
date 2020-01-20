@@ -272,6 +272,7 @@ function downloadCSV() {
         weight: 'Gewicht',
         description: 'Beschreibung',
         location: 'Standort',
+        room: 'Raum',
         type: 'Typ',
         addedDateTime: 'Hinzugefügt am',
         addedBy: 'Hinzugefügt von',
@@ -286,6 +287,7 @@ function downloadCSV() {
             weight: item.weight,
             description: item.description,
             location: item.location,
+            room: item.room,
             type: item.type,
             addedDateTime: convertDateToLocalFormat(item.addedDateTime),
             addedBy: item.addedBy,
@@ -305,6 +307,7 @@ function downloadCSV() {
         'Gewicht',
         'Beschreibung',
         'Standort',
+        'Raum',
         'Typ',
         'Hinzugefügt am',
         'Hinzugefügt von',
@@ -319,6 +322,7 @@ function downloadCSV() {
             item.weight,
             item.description,
             item.location,
+            item.room,
             item.type,
             convertDateToLocalFormat(item.addedDateTime),
             item.addedBy,
@@ -357,6 +361,7 @@ function createTableForPrint() {
         'Gewicht',
         'Beschreibung',
         'Standort',
+        'Raum',
         'Typ',
         'Hinzugefügt am',
         'Hinzugefügt von',
@@ -370,6 +375,7 @@ function createTableForPrint() {
             item.weight,
             item.description,
             item.location,
+            item.room,
             item.type,
             convertDateToLocalFormat(item.addedDateTime),
             item.addedBy,
@@ -510,7 +516,7 @@ function tryValidateImportCSV(text) {
 }
 
 function validateImportCsv(text, separator = ';') {
-    const lines = text.split('\n').map(line => line.trim('\r'));
+    const lines = text.split('\n').map(line => line.trim('\r')).filter(line => line);
     let headers = null;
     let rowIndex = 0;
 
@@ -600,6 +606,7 @@ function getInventoryItemAndInvalidHeaders(headers, values) {
         weight: 'Gewicht',
         description: 'Beschreibung',
         location: 'Standort',
+        room: 'Raum',
         type: 'Typ',
         addedDateTime: 'Hinzugefügt am',
         addedBy: 'Hinzugefügt von'
