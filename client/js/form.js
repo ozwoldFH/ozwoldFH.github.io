@@ -95,7 +95,15 @@ async function addData() {
     for (var i = 0; i < 11; i++) {
         var item = elements.item(i);
         if ((item.name === 'addedDateTime' || item.name === 'nextServiceDateTime' || item.name === 'lastServiceDateTime') && item.value !== '') {
-            validateDate(item.value);
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.indexOf('safari') != -1){
+                if(ua.indexOf('chrome') <= -1){
+                    if(!validateDate(item.value)){
+                        return;
+                    }
+                }
+                
+            }         
         }
         if (item.name === "nextServiceDateTime" && item.value < today && item.value !== "") {
             showMessageModal("Fehler bei der Eingabe", "Datum für das nächste Service liegt in der Vergangenheit.");
@@ -116,11 +124,12 @@ async function addData() {
 
 // date validation for safari
 function validateDate(date) {
-  let pattern = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
-
+  let pattern = /([0-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
   if (!pattern.test(date)) {
-    showMessageModal("Fehler bei der Eingabe", "Invalides Datum: Datum sollte gültig und im Brower Safari im YYYY-MM-DD Format sein!");
+    showMessageModal("Fehler bei der Eingabe", "Invalides Datum: Datum sollte im YYYY-MM-DD Format und valide sein!");
+    return false;
   }
+  return true;
 }
 
 async function postData(body) {
