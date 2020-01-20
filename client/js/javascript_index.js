@@ -30,14 +30,6 @@ $(document).ready(function () {
         });
         $displayEl.empty().append($editBtn).append($deleteBtn);
     };
-    const dataFilter = function (value, searchStr) {
-        if (searchStr.length < 4) {
-            return true;
-        }
-        const lowerCaseStr = searchStr.toLowerCase();
-        const row = inventory[value];
-        return searchPropertyNames.some(propName => String(row[propName]).toLowerCase().includes(lowerCaseStr));
-    };
 
     dataTable = $("#grid").grid({
         responsive: true,
@@ -132,6 +124,20 @@ $(document).ready(function () {
     checkColumnsCount();
     loadFunctionCallbackForModal = loadData;
 });
+
+
+const dataFilter = function (value, searchStr) {
+    if (searchStr == null) {
+        return true;
+    }
+
+    if (searchStr.length < 4) {
+        return true;
+    }
+    const lowerCaseStr = searchStr.toLowerCase();
+    const row = inventory[value];
+    return searchPropertyNames.some(propName => String(row[propName]).toLowerCase().includes(lowerCaseStr));
+};
 
 function showMessageModal(title, message) {
     document.getElementById("modal-title").innerHTML = title;
@@ -266,6 +272,7 @@ function downloadCSV() {
         weight: 'Gewicht',
         description: 'Beschreibung',
         location: 'Standort',
+        room: 'Raum',
         type: 'Typ',
         addedDateTime: 'Hinzugefügt am',
         addedBy: 'Hinzugefügt von',
@@ -274,12 +281,13 @@ function downloadCSV() {
         nextServiceDateTime: 'Nächstes Service'
     };
 
-    const formattedItems = Object.values(inventory).map((item) => {
+    const formattedItems = Object.values(inventory).filter(item=>dataFilter(item.id, lastSearchKey)).map((item) => {
         return {
             name: item.name,
             weight: item.weight,
             description: item.description,
             location: item.location,
+            room: item.room,
             type: item.type,
             addedDateTime: convertDateToLocalFormat(item.addedDateTime),
             addedBy: item.addedBy,
@@ -299,6 +307,7 @@ function downloadCSV() {
         'Gewicht',
         'Beschreibung',
         'Standort',
+        'Raum',
         'Typ',
         'Hinzugefügt am',
         'Hinzugefügt von',
@@ -307,12 +316,13 @@ function downloadCSV() {
         'Nächstes Service'
     ];
 
-    const formattedItems = Object.values(inventory).map((item) => {
+    const formattedItems = Object.values(inventory).filter(item=>dataFilter(item.id, lastSearchKey)).map((item) => {
         return [
             item.name,
             item.weight,
             item.description,
             item.location,
+            item.room,
             item.type,
             convertDateToLocalFormat(item.addedDateTime),
             item.addedBy,
@@ -339,9 +349,61 @@ function downloadCSV() {
       }
 
     addFooters(doc);
-      
-      doc.save('Inventory.pdf')
+
+    
+    doc.save('Inventory.pdf')
   }
+
+function createTableForPrint() {
+
+    const headers = [
+        'Name',
+        'Gewicht',
+        'Beschreibung',
+        'Standort',
+        'Raum',
+        'Typ',
+        'Hinzugefügt am',
+        'Hinzugefügt von',
+        'Letzter Service',
+        'Letzter Service von',
+        'Nächstes Service'
+    ];
+    const formattedItems = Object.values(inventory).filter(item=>dataFilter(item.id, lastSearchKey)).map((item) => {
+        return [
+            item.name,
+            item.weight,
+            item.description,
+            item.location,
+            item.room,
+            item.type,
+            convertDateToLocalFormat(item.addedDateTime),
+            item.addedBy,
+            convertDateToLocalFormat(item.lastServiceDateTime),
+            item.lastServiceBy,
+            convertDateToLocalFormat(item.nextServiceDateTime),
+        ];
+    });
+
+
+    var table = document.createElement("table");
+    var tr = table.insertRow(-1);
+    for (var i = 0; i < headers.length; i++) {
+        var th = document.createElement("th");
+        th.innerHTML = headers[i];
+        tr.appendChild(th);
+    }
+    for (var i = 0; i < formattedItems.length; i++) {
+        tr = table.insertRow(-1);
+        for (var j = 0; j < headers.length; j++) {
+            var tabCell = tr.insertCell(-1);
+            tabCell.innerHTML = formattedItems[i][[j]];
+        }
+    }
+    var divContainer = document.getElementById("example-print");
+    divContainer.innerHTML = " ";
+    divContainer.appendChild(table);
+}
 
 function openImportDataOverlay() {
     $('#import-overlay').fadeIn(200);
@@ -454,7 +516,7 @@ function tryValidateImportCSV(text) {
 }
 
 function validateImportCsv(text, separator = ';') {
-    const lines = text.split('\n').map(line => line.trim('\r'));
+    const lines = text.split('\n').map(line => line.trim('\r')).filter(line => line);
     let headers = null;
     let rowIndex = 0;
 
@@ -544,6 +606,7 @@ function getInventoryItemAndInvalidHeaders(headers, values) {
         weight: 'Gewicht',
         description: 'Beschreibung',
         location: 'Standort',
+        room: 'Raum',
         type: 'Typ',
         addedDateTime: 'Hinzugefügt am',
         addedBy: 'Hinzugefügt von'

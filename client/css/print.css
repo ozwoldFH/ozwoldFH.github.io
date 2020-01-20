@@ -2,30 +2,25 @@
  * Print Stylesheet
 */
 
-table {
-  page-break-inside: avoid;
-}
+/* reference code from: https://www.encodedna.com/javascript/populate-json-data-to-html-table-using-javascript.htm */
 
-td {
-  border-bottom: 1px solid #ccc;
-}
-
-#grid > thead > tr > th:nth-child(13) {
-  width: 0px;
-}
-
-#page-header {
-  display: none;
-}
-
-#grid-header {
-  display: none;
-}
-
-#grid > thead > tr > th:nth-child(12) {
-  display: none;
-}
-
-#grid > tbody > tr > td:nth-child(12) {
-  display: none;
+@media print {
+  .hideForPrint {
+    display: none;
+  }
+  .example-print {
+    display: block;
+  }
+  th, td, p, input {
+    font: 14px Helvetica;
+  }
+  table, th, td {
+    border: solid 1px #DDD;
+    border-collapse: collapse;
+    padding: 2px 3px;
+    text-align: center;
+  }
+  th {
+    font-weight: bold;
+  }
 }

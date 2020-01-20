@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory</title>
     <link rel="icon" type="image/png" href="icons/favicon.png">
     <link rel="stylesheet" type="text/css" href="css/design.css" />
@@ -28,7 +28,7 @@
     <h1 class="display-3">Inventar</h1>
 
 <div class="navbar">
-    <a><button id="addDataButton" class="myButton" type="button" onclick="window.print();return false;">Drucken</button></a>
+    <a><button id="addDataButton" class="myButton" type="button" onclick="createTableForPrint();window.print();return false;">Drucken</button></a>
     <a><button id="printButton" class="myButton" type="button" onclick="goToForm('./form.html')">Hinzufügen</button></a>
     <a><button id="csvExportButton" class="myButton" type="button" onclick="downloadCSV()">CSV exportieren</button></a>
     <a><button id="pdfExportButton" class="myButton" type="button" onclick="downloadPDF()">PDF exportieren</button></a>
@@ -40,7 +40,7 @@
         </div>
     </div>
 </div>
-    <div>
+    <div class="hideForPrint">
         <table id="grid">
         </table>
     </div>
@@ -142,6 +142,9 @@
     </div>
 </div>
 
+
+
+<div id="example-print" class="example-print"></div>
     <script type="text/javascript">
     </script>
 </body>
