@@ -127,6 +127,10 @@ $(document).ready(function () {
 
 
 const dataFilter = function (value, searchStr) {
+    if (searchStr == null) {
+        return true;
+    }
+
     if (searchStr.length < 4) {
         return true;
     }
@@ -341,9 +345,59 @@ function downloadCSV() {
       }
 
     addFooters(doc);
-      
-      doc.save('Inventory.pdf')
+
+    
+    doc.save('Inventory.pdf')
   }
+
+function createTableForPrint() {
+
+    const headers = [
+        'Name',
+        'Gewicht',
+        'Beschreibung',
+        'Standort',
+        'Typ',
+        'Hinzugefügt am',
+        'Hinzugefügt von',
+        'Letzter Service',
+        'Letzter Service von',
+        'Nächstes Service'
+    ];
+    const formattedItems = Object.values(inventory).filter(item=>dataFilter(item.id, lastSearchKey)).map((item) => {
+        return [
+            item.name,
+            item.weight,
+            item.description,
+            item.location,
+            item.type,
+            convertDateToLocalFormat(item.addedDateTime),
+            item.addedBy,
+            convertDateToLocalFormat(item.lastServiceDateTime),
+            item.lastServiceBy,
+            convertDateToLocalFormat(item.nextServiceDateTime),
+        ];
+    });
+
+
+    var table = document.createElement("table");
+    var tr = table.insertRow(-1);
+    for (var i = 0; i < headers.length; i++) {
+        var th = document.createElement("th");
+        th.innerHTML = headers[i];
+        tr.appendChild(th);
+    }
+    for (var i = 0; i < formattedItems.length; i++) {
+        tr = table.insertRow(-1);
+        for (var j = 0; j < headers.length; j++) {
+            var tabCell = tr.insertCell(-1);
+            tabCell.innerHTML = formattedItems[i][[j]];
+        }
+    }
+    var divContainer = document.getElementById("example-print");
+    divContainer.innerHTML = " ";
+    divContainer.appendChild(table);
+}
 
 function openImportDataOverlay() {
     $('#import-overlay').fadeIn(200);

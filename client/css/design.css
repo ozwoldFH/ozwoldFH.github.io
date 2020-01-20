@@ -1,3 +1,9 @@
+
+
+.example-print {
+    display: none;
+  }
+
 body {
     background-color: white;
 }
