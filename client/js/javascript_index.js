@@ -659,7 +659,12 @@ function isValueInvalid(propName, value) {
         case 'weight':
             return Number.isNaN(parseFloat(value)) ? 'Format' : false;
         case 'addedDateTime':
-            return !validateDate(value) ? 'Format' : false;
+            const addedDate = !value || validateDate(value);
+            if (!addedDate) {
+                return 'Format';
+            } else if (addedDate >= new Date()) {
+                return 'Zukunft';
+            }
         case 'lastServiceDateTime':
             const lastDate = !value || validateDate(value);
             if (!lastDate) {
@@ -698,19 +703,18 @@ function convertDateFromLocalFormat(text) {
     return text && text.split('.').reverse().join('-');
 }
 
-function validateDate(text, minDate) {
+function validateDate(text) {
     const parts = text.split('.');
     if (parts.length !== 3 || !parts.every(isValidInt)) {
         return false;
     }
 
-    if (!minDate) {
-        minDate = new Date('0000-01-01');
-    }
-
     const nos = parts.map(part => parseInt(part));
-    const date = new Date(`${nos[2]}-${nos[1]}-${nos[0]}`);
-    return date >= minDate ? date : false;
+    const day = nos[0];
+    const month = nos[1];
+    const year = nos[2];
+    const date = new Date(`${year}-${month}-${day}`);
+    return date.getDate() === day && date.getMonth() === month && date.getFullYear() === year ? date : false;
 }
 
 function isValidInt(text) {

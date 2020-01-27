@@ -21,59 +21,55 @@
   <div class="container">
   <h1 id="h1" class="display-4">Daten hinzufügen</h1>
 
-  <form id="myForm" method="POST" name="myForm" class="needs-validation" novalidate>
+  <form id="myForm" method="POST" name="myForm">
     <div class="form-group">
       <label for="name">Gegenstandsname</label>
-      <input type="text" class="form-control" id="name" name="name" maxlength="32" placeholder="PC_0001" required>
-      <div class="invalid-feedback">
-        Bitte einen Namen angeben.
-      </div>
+      <input type="text" class="form-control" id="name" name="name" placeholder="PC_0001">
+      <div class="invalid-feedback"></div>
     </div>
     <div class="form-group">
       <label for="weight">Gewicht in kg</label>
-      <input type="number" step="0.1" min="0" class="form-control" id="weight" name="weight" placeholder="10" required>
+      <input type="number" step="0.01" min="0" class="form-control" id="weight" name="weight" placeholder="10">
       <div class="invalid-feedback">
         Bitte das Gewicht angeben.
       </div>
     </div>
     <div class="form-group">
       <label for="description">Beschreibung</label>
-      <input type="text" class="form-control" id="description" name="description" maxlength="256" placeholder="Ein standard Computer" required>
-      <div class="invalid-feedback">
-        Bitte die Beschreibung angeben.
-      </div>
+      <input type="text" class="form-control" id="description" name="description" placeholder="Ein standard Computer">
+      <div class="invalid-feedback"></div>
     </div>
     <div class="form-group">
       <label for="location">Standort</label>
-      <input type="text" class="form-control" id="location" name="location" maxlength="32" placeholder="FH Kapfenberg" required>
+      <input type="text" class="form-control" id="location" name="location" placeholder="FH Kapfenberg">
       <div class="invalid-feedback">
         Bitte den Standort angeben.
       </div>
     </div>
     <div class="form-group">
       <label for="room">Raum</label>
-      <input type="text" class="form-control" id="room" name="room" maxlength="32" placeholder="Raum101" required>
+      <input type="text" class="form-control" id="room" name="room" placeholder="Raum101">
       <div class="invalid-feedback">
         Bitte den Raum angeben.
       </div>
     </div>
     <div class="form-group">
       <label for="type">Typ</label>
-      <input type="text" class="form-control" id="type" name="type" maxlength="32" placeholder="PC" required>
+      <input type="text" class="form-control" id="type" name="type" placeholder="PC">
       <div class="invalid-feedback">
         Bitte den Typ angeben.
       </div>
     </div>
     <div class="form-group">
       <label for="addedDateTime">Hinzugefügt am</label>
-      <input type="date" class="form-control" id="addedDateTime" name="addedDateTime" placeholder="Datum !!!!!!!!!" required>
+      <input type="date" class="form-control" id="addedDateTime" name="addedDateTime" placeholder="Datum !!!!!!!!!">
       <div class="invalid-feedback">
         Bitte das Datum angeben.
       </div>
     </div>
     <div class="form-group">
       <label for="addedBy">Hinzugefügt von</label>
-      <input type="text" class="form-control" id="addedBy" name="addedBy" maxlength="32" placeholder="admin_go" required>
+      <input type="text" class="form-control" id="addedBy" name="addedBy" placeholder="admin_go">
       <div class="invalid-feedback">
           Bitte angeben, wer diesen Gegenstand hinzugefügt hat.
         </div>
@@ -81,14 +77,19 @@
     <div class="form-group">
       <label for="lastServiceDateTime">Letztes Service</label>
       <input type="date" class="form-control" id="lastServiceDateTime" name="lastServiceDateTime" placeholder="Datum !!!!!!!!!">
+      <div class="invalid-feedback"></div>
     </div>
     <div class="form-group">
       <label for="lastServiceBy">Letztes Service von</label>
-      <input type="text" class="form-control" id="lastServiceBy" name="lastServiceBy" maxlength="32" placeholder="Nobert">
+      <input type="text" class="form-control" id="lastServiceBy" name="lastServiceBy" placeholder="Nobert">
+      <div class="invalid-feedback">
+        Bitte angeben, wer den letzten Service durchgeführt hat.
+      </div>
     </div>
     <div class="form-group">
       <label for="mindate">Nächstes Service</label>
       <input type="date" class="form-control" id="mindate" name="nextServiceDateTime" placeholder="Datum !!!!!!!!!">
+      <div class="invalid-feedback"></div>
     </div>
     <div class="form-group">
       <button class="btn btn-primary btn-lg btn-block" type="button" onclick="addData()">Submit form</button>

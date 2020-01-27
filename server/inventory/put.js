@@ -2,14 +2,21 @@ const dbQuery = require('../helper/db');
 
 async function put({id, name, weight, description, location, room, type, addedDateTime, addedBy, lastServiceDateTime, lastServiceBy, nextServiceDateTime}) {
     try {
-        if (!name || !weight || !description || !location
-            || !room || !type || !addedDateTime || !addedBy) {
+        if (!name || !weight || !description || !location || !room || !type || !addedBy) {
             throw {code: 400, message: 'data is invalid'};
         }
 
         const now = new Date();
-        if (!lastServiceDateTime) {
+        if (!addedDateTime) {
+            throw {code: 400, message: 'addedDateTime is required'};
+        } else if (!(now > new Date(addedDateTime))) {
+            throw {code: 400, message: 'addedDateTime has to be in the past'};
+        }
+        if (!lastServiceDateTime && !lastServiceBy) {
             lastServiceDateTime = null;
+            lastServiceBy = null;
+        } else if (lastServiceDateTime ^ lastServiceBy) {
+            throw {code: 400, message: 'lastServiceDateTime and lastServiceBy must be set or none of them'};
         } else if (!(now > new Date(lastServiceDateTime))) {
             throw {code: 400, message: 'lastServiceDateTime has to be in the past'};
         }

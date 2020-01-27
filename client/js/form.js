@@ -2,27 +2,18 @@
 let today;
 let editMode = "false";
 
-window.addEventListener("load", function() {
-    // validation code. code by https://getbootstrap.com/docs/4.2/components/forms/?
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.getElementsByClassName('needs-validation');
-    // Loop over them and check
-    Array.prototype.filter.call(forms, function(form) {
-        if (form.checkValidity() === false) {
-            form.classList.add('was-validated');
-        }
-    });
+window.addEventListener("load", function () {
+    $(".form-control").bind('input propertychange', onInputValueChanged);
 
+    today = new Date().toISOString().slice(0, 10);
+    document.getElementById('mindate').setAttribute('min', today);
 
+    editMode = this.localStorage.getItem("editMode");
+    if (editMode === "true") {
+        changeFormToEditMode();
+    }
 
-  today = new Date().toISOString().slice(0, 10);
-  document.getElementById('mindate').setAttribute('min', today);
-
-  editMode = this.localStorage.getItem("editMode");
-  if (editMode == "true") {
-    changeFormToEditMode();
-  }
-
+    $('.form-control').each((index, element) => validateElement(element));
 });
 
 
@@ -35,7 +26,7 @@ async function changeFormToEditMode() {
     for (var key in jsonDATA) {
         var name = key;
         var value = jsonDATA[key];
-        if (name != "id") {
+        if (name !== "id") {
             if (name.toLowerCase().endsWith("datetime")) {
                 if (value) {
                     const date = new Date(value);
@@ -48,6 +39,136 @@ async function changeFormToEditMode() {
             }
         }
     }
+}
+
+function onInputValueChanged(args) {
+    validateElement(args.target);
+
+    if (args.target.name === 'lastServiceDateTime') {
+        validateElement(document.getElementById('lastServiceBy'));
+    } else if (args.target.name === 'lastServiceBy') {
+        validateElement(document.getElementById('lastServiceDateTime'));
+    }
+}
+
+function validateElement(element) {
+    const invalidReason = getInputInvalidReason(element.name, element.value);
+    if (invalidReason) {
+        $(element).removeClass('is-valid')
+            .addClass('is-invalid');
+
+        if (invalidReason !== true) {
+            $(element).parent().find('.invalid-feedback').text(invalidReason);
+        }
+    } else {
+        $(element).removeClass('is-invalid')
+            .addClass('is-valid');
+    }
+
+    console.log(element.name, $(element).attr('name'), invalidReason, $(element).parent().find('.invalid-feedback').text());
+}
+
+function getInputInvalidReason(title, value) {
+    console.log(title, value)
+    switch (title) {
+        case 'name':
+            if (!value) {
+                return 'Bitte einen Namen angeben.';
+            } else if (value.length > 32) {
+                return 'Maximale länge von 32 Zeichen';
+            }
+            return false;
+        case 'description':
+            if (!value) {
+                return 'Bitte die Beschreibung angeben.';
+            } else if (value.length > 256) {
+                return 'Maximale länge von 256 Zeichen';
+            }
+            return false;
+        case 'location':
+            if (!value) {
+                return 'Bitte einen Standort angeben.';
+            } else if (value.length > 32) {
+                return 'Maximale länge von 32 Zeichen';
+            }
+            return false;
+        case 'room':
+            if (!value) {
+                return 'Bitte einen Raum angeben.';
+            } else if (value.length > 32) {
+                return 'Maximale länge von 32 Zeichen';
+            }
+            return false;
+        case 'type':
+            if (!value) {
+                return 'Bitte einen Typ angeben.';
+            } else if (value.length > 32) {
+                return 'Maximale länge von 32 Zeichen';
+            }
+            return false;
+        case 'addedBy':
+            if (!value) {
+                return 'Bitte angeben, wer diesen Gegenstand hinzugefügt hat.';
+            } else if (value.length > 32) {
+                return 'Maximale länge von 32 Zeichen';
+            }
+            return false;
+        case 'weight':
+            const weight = Number(value.replace(',', '.'));
+            return !(weight && weight > 0);
+        case 'addedDateTime':
+            if (!value) {
+                return 'Bitte ein Datum angeben.';
+            }
+            const addedDate = validateDate(value);
+            if (!addedDate) {
+                return 'Bitte das Datum im richtigen Format angeben.';
+            } else if (addedDate > new Date()) {
+                return 'Datum darf nicht in der Zukunft liegen.';
+            }
+            return false;
+        case 'lastServiceDateTime':
+            if ($('#lastServiceBy').val() && !value) {
+                return 'Bitte ein Datum angeben.'
+            }
+            const lastDate = !value || validateDate(value);
+            if (!lastDate) {
+                return 'Bitte das Datum im richtigen Format angeben.';
+            } else if (lastDate > new Date()) {
+                return 'Datum darf nicht in der Zukunft liegen.';
+            }
+            return false;
+        case 'lastServiceBy':
+            console.log($('#lastServiceDateTime').val(), value);
+            if ($('#lastServiceDateTime').val() && !value) {
+                return 'Bitte Person angebeben.';
+            } else if (value.length > 32) {
+                return 'Maximale länge von 32 Zeichen';
+            }
+            return false;
+        case 'nextServiceDateTime':
+            if (!value) {
+                return false;
+            }
+            const nextDate = validateDate(value);
+            if (!nextDate) {
+                return 'Bitte das Datum im richtigen Format angeben.';
+            } else if (nextDate <= new Date()) {
+                return 'Datum muss in der Zukunft liegen.';
+            }
+            return false;
+        default:
+            return null;
+    }
+}
+
+function validateDate(text) {
+    const date = new Date(text);
+    const nos = text.split('-').map(no => Number(no));
+    const year = nos[0];
+    const month = nos[1] - 1;
+    const day = nos[2];
+    return date.getDate() === day && date.getMonth() === month && date.getFullYear() === year ? date : false;
 }
 
 function showMessageModal(title, message) {
@@ -69,41 +190,31 @@ function showMessageModalForEditMode(title, message) {
 }
 
 async function addData() {
-    var forms = document.getElementsByClassName('needs-validation');
-    var validation = true;
-    Array.prototype.filter.call(forms, function(form) {
-        if (form.checkValidity() === false) {
-            form.classList.add('was-validated');
-            validation = false;
-        }
-    });
-
-    if (validation == false) {
+    if ($('.is-invalid').length) {
         return;
     }
 
-    
-    var elements = document.getElementById("myForm").elements;
-    var obj = {};
-    if (editMode == "true") {
+    const elements = document.getElementById("myForm").elements;
+    const obj = {};
+    if (editMode === "true") {
         const jsonDATA = JSON.parse(localStorage.getItem("row"));
         obj["id"] = jsonDATA["id"];
     } else {
         obj["id"] = -1;
     }
-    let missingInput = "";
-    for (var i = 0; i < 11; i++) {
-        var item = elements.item(i);
+
+    for (let i = 0; i < 11; i++) {
+        const item = elements.item(i);
         if ((item.name === 'addedDateTime' || item.name === 'nextServiceDateTime' || item.name === 'lastServiceDateTime') && item.value !== '') {
-            var ua = navigator.userAgent.toLowerCase();
-            if(ua.indexOf('safari') != -1){
-                if(ua.indexOf('chrome') <= -1){
-                    if(!validateDate(item.value)){
+            const ua = navigator.userAgent.toLowerCase();
+            if (ua.indexOf('safari') !== -1) {
+                if (ua.indexOf('chrome') <= -1) {
+                    if (!validateDateSafari(item.value)) {
                         return;
                     }
                 }
-                
-            }         
+
+            }
         }
         if (item.name === "nextServiceDateTime" && item.value < today && item.value !== "") {
             showMessageModal("Fehler bei der Eingabe", "Datum für das nächste Service liegt in der Vergangenheit.");
@@ -112,24 +223,23 @@ async function addData() {
         obj[item.name] = item.value;
     }
 
-    var objArray = new Array(obj);
-
-    if (editMode == "true") {
+    if (editMode === "true") {
         await putData(obj);
     } else {
+        const objArray = new Array(obj);
         await postData(objArray);
     }
 
 }
 
 // date validation for safari
-function validateDate(date) {
-  let pattern = /([0-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
-  if (!pattern.test(date)) {
-    showMessageModal("Fehler bei der Eingabe", "Invalides Datum: Datum sollte im YYYY-MM-DD Format und valide sein!");
-    return false;
-  }
-  return true;
+function validateDateSafari(date) {
+    let pattern = /([0-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
+    if (!pattern.test(date)) {
+        showMessageModal("Fehler bei der Eingabe", "Invalides Datum: Datum sollte im YYYY-MM-DD Format und valide sein!");
+        return false;
+    }
+    return true;
 }
 
 async function postData(body) {

@@ -16,12 +16,19 @@ async function post(newItems) {
         const now = new Date();
         newItems.forEach(newItem => {
             if (!newItem.name || !newItem.weight || !newItem.description || !newItem.location
-                || !newItem.room || !newItem.type || !newItem.addedDateTime || !newItem.addedBy) {
+                || !newItem.room || !newItem.type || !newItem.addedBy) {
                 throw {code: 400, message: 'data is invalid'};
             }
 
-            if (!newItem.lastServiceDateTime) {
+            if (!newItem.addedDateTime) {
+                throw {code: 400, message: 'addedDateTime is required'};
+            } else if (!(now > new Date(newItem.addedDateTime))) {
+                throw {code: 400, message: 'addedDateTime has to be in the past'};
+            }
+            if (!newItem.lastServiceDateTime && !newItem.lastServiceBy) {
                 newItem.lastServiceDateTime = null;
+            } else if (newItem.lastServiceDateTime ^ newItem.lastServiceBy) {
+                throw {code: 400, message: 'lastServiceDateTime and lastServiceBy must be set or none of them'};
             } else if (!(now > new Date(newItem.lastServiceDateTime))) {
                 throw {code: 400, message: 'lastServiceDateTime has to be in the past'};
             }
