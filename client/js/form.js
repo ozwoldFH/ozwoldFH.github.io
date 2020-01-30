@@ -7,6 +7,8 @@ window.addEventListener("load", function () {
 
     today = new Date().toISOString().slice(0, 10);
     document.getElementById('mindate').setAttribute('min', today);
+    document.getElementById('addedDateTime').setAttribute('max', today);
+    document.getElementById('lastServiceDateTime').setAttribute('max', today);
 
     editMode = this.localStorage.getItem("editMode");
     if (editMode === "true") {
@@ -65,11 +67,9 @@ function validateElement(element) {
             .addClass('is-valid');
     }
 
-    console.log(element.name, $(element).attr('name'), invalidReason, $(element).parent().find('.invalid-feedback').text());
 }
 
 function getInputInvalidReason(title, value) {
-    console.log(title, value)
     switch (title) {
         case 'name':
             if (!value) {
@@ -139,7 +139,6 @@ function getInputInvalidReason(title, value) {
             }
             return false;
         case 'lastServiceBy':
-            console.log($('#lastServiceDateTime').val(), value);
             if ($('#lastServiceDateTime').val() && !value) {
                 return 'Bitte Person angebeben.';
             } else if (value.length > 32) {
